@@ -1,5 +1,4 @@
 import Logo from "../../assets/img/logo1.svg";
-import Imagem from "../../assets/img/login_imagem.svg"
 import Botao from "../../components/botao/Botao";
 import "./Login.css";
 
@@ -26,7 +25,7 @@ const Login = () => {
             <a href="#">Esqueceu a senha?</a>
           </div>
 
-          <Botao nomedoBotao="Login" />
+          <Botao nomeDoBotao="Login"/>
         </form>
       </section>
     </main>

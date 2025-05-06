@@ -1,22 +1,20 @@
-/* background-color: #cc3f55; */
 header{
     background-color: #ffffff;
     height: 75px;
-
-    /* Borda: */
     box-shadow: 1px 4px 4px 0px #00000055;
     position: relative;
 }
 
 .cabecalho{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
+    margin-top: 40px
 }
 
 .cabecalho img{
-    height: 55px;
+    height: 35px;
 }
 
 .link_header{

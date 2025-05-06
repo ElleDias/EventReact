@@ -1,10 +1,9 @@
 import './App.css';
-import Login from './pages/login/Login.jsx';
+import Routes from "./Routes/routes"
 
 function App() {
   return (
-    <Login />
+    <Routes/>
   );
 }
-
 export default App;
