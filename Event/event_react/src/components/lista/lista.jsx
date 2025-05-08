@@ -12,6 +12,7 @@ const Lista = (props) => {
         <thead>
           <tr className="tabela_cabecalho">
             <th>Título</th>
+            <th>{props.nametitulo}</th>
             <th>Editar</th>
             <th>Deletar</th>
           </tr>
@@ -19,6 +20,7 @@ const Lista = (props) => {
         <tbody>
           <tr className="item_lista">
             <td data-cell="Título">{props.tituloItemLista}</td>
+            <td>{props.tituloItemLista2}</td>
             <td data-cell="Editar"><img src={Caneta} alt="Imagem de uma caneta" /></td>
             <td data-cell="Excluir"><img src={Lixo} alt="ícone deletar" /></td>
           </tr>

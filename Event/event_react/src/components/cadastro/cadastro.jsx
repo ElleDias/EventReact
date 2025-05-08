@@ -4,29 +4,42 @@ import Imagem from "../Imagem/imagem"
 
 const Cadastro = (props) => {
     return (
-      <main className="layout_grid main_cadastro">
-          <form action="" className="layout_grid form_cadastro">
-            <div className="titulo">
+        <main className="layout_grid main_cadastro">
+            <form action="" className="layout_grid form_cadastro">
+                <div className="titulo">
                     <h1>{props.tituloCadastro}</h1>
-                    <hr/>
+                    <hr />
                 </div>
 
-            <section className="layout_grid section_cadastro">
+                <section className="layout_grid section_cadastro">
                     <div className="banner_cadastro">
-                    <Imagem imagem={props.imagem} alt="Banner do cadastro" />
+                        <Imagem imagem={props.imagem} alt="Banner do cadastro" />
                     </div>
 
-            
+
                     <div className="campos_cadastro">
                         <div className="campo_cad_titulo">
                             <label htmlFor="titulo"></label>
-                            <input type="text" name="nome" placeholder={`${props.namePlace}`}/>
+                            <input type="text" name="nome" placeholder={`${props.namePlace}`} />
                         </div>
 
-                        <Botao nomeDoBotao="Cadastrar"/>
+                        {props.exibirTipoEvento && (
+                            <div className="campo-tipo-evento">
+                                <label htmlFor="tipo-evento"></label>
+                                <select name="tipo-evento" id="tipo-evento" defaultValue="">
+                                    <option value="" disabled>Tipo evento</option>
+                                    <option value="op1">op 1</option>
+                                    <option value="op2">op 2</option>
+                                    <option value="op3">op 3</option>
+                                </select>
+                                <hr />
+                            </div>
+                        )}
+
+                        <Botao nomeDoBotao="Cadastrar" />
                     </div>
-            </section>
-                </form>
+                </section>
+            </form>
         </main>
     )
 }

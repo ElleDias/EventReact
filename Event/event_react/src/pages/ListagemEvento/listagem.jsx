@@ -11,13 +11,18 @@ const ListagemEvento = () => {
             <Header />
             <main>
                 <Cadastro
+                    nametitulo="Tipo Evento"
                     imagem={imagemListarEvento}
                     tituloCadastro="Cadastro de Evento"
                     namePlace="Nome"
-                />
+                    exibirTipoEvento={true} />
+
                 <Lista
+                    nametitulo="Tipo Evento"
                     tituloItemLista="Nome"
+                    tituloItemLista2="Tipo Evento"
                     tituloLista="Lista de Evento"
+                    visibilidade="none"
                 />
             </main>
             <Footer />

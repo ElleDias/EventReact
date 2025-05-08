@@ -1,3 +1,7 @@
+body {
+    font-family: "Poppins", sans-serif; 
+  }
+
 .titulo {
     display: flex;
     justify-content: center;
@@ -47,7 +51,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 90px;
+    margin-bottom: 65px;
 }
 
 .campo_cad_titulo input {
@@ -59,3 +63,47 @@
     font-size: 15px;
     width: 356px;
 }
+
+.campo-tipo-evento {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px; 
+}
+
+.campo-tipo-evento select {
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 15px;
+    color: #B4A9A9;
+    width: 356px;
+    font-family: 'Poppins', sans-serif;
+}
+  
+  
+  .campo-tipo-evento hr {
+    margin-top: 4px;
+    border: none;
+    border-bottom: 1px solid #000000;
+  }
+  
+  @media (max-width: 768px) {
+    .section_cadastro {
+      flex-direction: column;
+      height: auto;
+      gap: 20px;
+    }
+  
+    .banner_cadastro {
+      display: none;
+    }
+  
+    .form_cadastro {
+      margin-bottom: 30px;
+    }
+  
+    .campo_cad_titulo input,
+    .campo-tipo-evento select {
+      width: 90%;
+    }
+  }
+  

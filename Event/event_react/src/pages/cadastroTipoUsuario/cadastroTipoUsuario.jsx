@@ -18,6 +18,7 @@ const CadastroTipoGenero = () => {
         <Lista
           tituloItemLista="Tipo Usuário"
           tituloLista="Lista De Tipo Usuário"
+           visibilidade="none"
         />
       </main>
       <Footer />
