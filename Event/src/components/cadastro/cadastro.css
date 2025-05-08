@@ -83,7 +83,6 @@ body {
   .campo-tipo-evento hr {
     margin-top: 4px;
     border: none;
-    border-bottom: 1px solid #000000;
   }
   
   @media (max-width: 768px) {

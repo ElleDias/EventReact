@@ -4,7 +4,7 @@ import Caneta from "../../assets/img/caneta.png"
 
 const Lista = (props) => {
   return (
-    <section className="layout_grid listagem">
+    <section className="listagem">
       <h1>{props.tituloLista}</h1>
       <hr />
 
