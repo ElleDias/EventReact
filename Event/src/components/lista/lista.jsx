@@ -1,4 +1,4 @@
-import './lista.css';
+import './Lista.css';
 import Lixo from "../../assets/img/Lixo_Branco.png"
 import Caneta from "../../assets/img/caneta.png"
 

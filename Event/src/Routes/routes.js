@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/login/Login";
-import CadastroTipoEvento from "../pages/cadastroTipoEvento/cadastroTipoEvento";
-import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/cadastroTipoUsuario"
-import ListagemEvento from "../pages/ListagemEvento/listagem"
+import CadastroTipoEvento from "../pages/cadastroTipoEvento/CadastroTipoEvento";
+import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario"
+import ListagemEvento from "../pages/ListagemEvento/Listagem"
 
 const Rotas = () => {
     return(

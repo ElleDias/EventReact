@@ -1,6 +1,6 @@
-import "./cadastro.css";
+import "./Cadastro.css";
 import Botao from "../botao/Botao";
-import Imagem from "../Imagem/imagem"
+import Imagem from "../imagem/Imagem"
 
 const Cadastro = (props) => {
     return (

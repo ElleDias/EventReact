@@ -1,7 +1,7 @@
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import Cadastro from "../../components/cadastro/cadastro";
-import Lista from '../../components/lista/lista'; 
+import Cadastro from "../../components/cadastro/Cadastro";
+import Lista from '../../components/lista/Lista'; 
 import imagemTipoEvento from "../../assets/img/cadastroTipoEvento_imagem.svg"
 
 const CadastroTipoEvento = () => {
