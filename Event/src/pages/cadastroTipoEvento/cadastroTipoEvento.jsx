@@ -11,14 +11,14 @@ const CadastroTipoEvento = () => {
             <main>
                 <Cadastro
                     imagem={imagemTipoEvento}
-                    tituloCadastro="Cadastro Tipo de Evento"
-                    namePlace="Titulo"
+                    titulo_cadastro="Cadastro Tipo de Evento"
+                    nome="Titulo"
                 />
 
                 <Lista
-                    tituloItemLista="Tipo Evento"
-                    tituloLista="Lista De Eventos"
-                     tituloItemLista2=" "
+                    titulo_item_lista="Tipo Evento"
+                    titulo_lista="Lista De Eventos"
+                     titulo_item_lista2=" "
                      visibilidade="none"
                 />
 

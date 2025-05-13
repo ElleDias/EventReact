@@ -64,13 +64,13 @@ body {
     width: 356px;
 }
 
-.campo-tipo-evento {
+.campo_tipo_evento {
     display: flex;
     flex-direction: column;
     margin-bottom: 40px; 
 }
 
-.campo-tipo-evento select {
+.campo_tipo_evento select {
     border: none;
     border-bottom: 1px solid #000;
     font-size: 15px;
@@ -80,7 +80,7 @@ body {
 }
   
   
-  .campo-tipo-evento hr {
+  .campo_tipo_evento hr {
     margin-top: 4px;
     border: none;
   }
@@ -101,7 +101,7 @@ body {
     }
   
     .campo_cad_titulo input,
-    .campo-tipo-evento select {
+    .campo_tipo_evento select {
       width: 90%;
     }
   }

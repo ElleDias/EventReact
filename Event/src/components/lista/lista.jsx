@@ -5,22 +5,22 @@ import Caneta from "../../assets/img/caneta.png"
 const Lista = (props) => {
   return (
     <section className="listagem">
-      <h1>{props.tituloLista}</h1>
+      <h1>{props.titulo_lista}</h1>
       <hr />
 
       <div className="tabela">
         <thead>
           <tr className="tabela_cabecalho">
             <th>Título</th>
-            <th>{props.nametitulo}</th>
+            <th>{props.nome_titulo}</th>
             <th>Editar</th>
             <th>Deletar</th>
           </tr>
         </thead>
         <tbody>
           <tr className="item_lista">
-            <td data-cell="Título">{props.tituloItemLista}</td>
-            <td>{props.tituloItemLista2}</td>
+            <td data-cell="Título">{props.titulo_item_lista}</td>
+            <td>{props.titulo_item_lista2}</td>
             <td data-cell="Editar"><img src={Caneta} alt="Imagem de uma caneta" /></td>
             <td data-cell="Excluir"><img src={Lixo} alt="ícone deletar" /></td>
           </tr>

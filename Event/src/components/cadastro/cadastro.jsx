@@ -7,7 +7,7 @@ const Cadastro = (props) => {
         <main className="layout_grid main_cadastro">
             <form action="" className="layout_grid form_cadastro">
                 <div className="titulo">
-                    <h1>{props.tituloCadastro}</h1>
+                    <h1>{props.titulo_cadastro}</h1>
                     <hr />
                 </div>
 
@@ -16,17 +16,16 @@ const Cadastro = (props) => {
                         <Imagem imagem={props.imagem} alt="Banner do cadastro" />
                     </div>
 
-
                     <div className="campos_cadastro">
                         <div className="campo_cad_titulo">
                             <label htmlFor="titulo"></label>
-                            <input type="text" name="nome" placeholder={`${props.namePlace}`} />
+                            <input type="text" name="nome" placeholder={`${props.nome}`} />
                         </div>
 
-                        {props.exibirTipoEvento && (
-                            <div className="campo-tipo-evento">
-                                <label htmlFor="tipo-evento"></label>
-                                <select name="tipo-evento" id="tipo-evento" defaultValue="">
+                        {props.exibir_tipo_evento && (
+                            <div className="campo_tipo_evento">
+                                <label htmlFor="tipo_evento"></label>
+                                <select name="tipo_evento" id="tipo_evento" defaultValue="">
                                     <option value="" disabled>Tipo evento</option>
                                     <option value="op1">op 1</option>
                                     <option value="op2">op 2</option>
@@ -35,7 +34,6 @@ const Cadastro = (props) => {
                                 <hr />
                             </div>
                         )}
-
                         <Botao nomeDoBotao="Cadastrar" />
                     </div>
                 </section>
