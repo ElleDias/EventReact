@@ -1,11 +1,11 @@
 import "./Cadastro.css";
 import Botao from "../botao/Botao";
-import Imagem from "../Imagem/Imagem"
+import Imagem from "../Imagem/Imagem";
 
 const Cadastro = (props) => {
     return (
         <main className="layout_grid main_cadastro">
-            <form action="" className="layout_grid form_cadastro">
+            <form className="layout_grid form_cadastro" onSubmit={props.onSubmit}>
                 <div className="titulo">
                     <h1>{props.titulo_cadastro}</h1>
                     <hr />
@@ -19,7 +19,13 @@ const Cadastro = (props) => {
                     <div className="campos_cadastro">
                         <div className="campo_cad_titulo">
                             <label htmlFor="titulo"></label>
-                            <input type="text" name="nome" placeholder={`${props.nome}`} />
+                            <input
+                                type="text"
+                                name="titulo"
+                                placeholder={props.nome}
+                                value={props.valor}
+                                onChange={props.onChange}
+                            />
                         </div>
 
                         {props.exibir_tipo_evento && (
@@ -34,12 +40,13 @@ const Cadastro = (props) => {
                                 <hr />
                             </div>
                         )}
-                        <Botao nomeDoBotao="Cadastrar" />
+
+                        <Botao nomeDoBotao="Cadastrar" tipo="submit" />
                     </div>
                 </section>
             </form>
         </main>
-    )
-}
+    );
+};
 
-export default Cadastro
+export default Cadastro;
