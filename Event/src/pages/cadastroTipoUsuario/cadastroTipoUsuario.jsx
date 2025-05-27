@@ -13,8 +13,8 @@ const CadastroTipoUsuario = () => {
   const [tipoUsuario, setTipoUsuario] = useState("");
   // Estado para guardar a lista de tipos de usuário vindo da API
   const [listaTipoUsuario, setListaTipoUsuario] = useState([]);
-  // Estado para controlar atualização da lista (não usado diretamente aqui)
-  const [atualizaTipoUsuario, setAtualizaTipoUsuario] = useState(false);
+
+
 
   // Função para mostrar alertas rápidos com SweetAlert2
   function alertar(icone, mensagem) {
@@ -61,7 +61,6 @@ const CadastroTipoUsuario = () => {
     try {
       const resposta = await api.get("tiposUsuarios");
       setListaTipoUsuario(resposta.data); // atualiza o estado com os dados
-      console.log(resposta.data); 
     } catch (error) {
       console.log(error);
     }
@@ -164,21 +163,29 @@ const CadastroTipoUsuario = () => {
       <main>
         {/* Componente de cadastro, recebe props para controlar o formulário */}
         <Cadastro
+          exibirListaCadastro={false}
           imagem={imagemTipoUsuario}
           titulo_cadastro="Cadastro Tipo de Usuário"
-          nome="Título"
-          valor={tipoUsuario}
-          onChange={(e) => setTipoUsuario(e.target.value)}
+          placeholderTitulo="Título"
+          valorTitulo={tipoUsuario}
+          onChangeTitulo={(e) => setTipoUsuario(e.target.value)}
           onSubmit={cadastrarTipoUsuario}
         />
 
+
         {/* Componente para mostrar a lista de tipos de usuário */}
         <Lista
+          tituloCadastro=""
           tituloLista="Lista De Tipo Usuário"
-          visibilidade="none" // esconde a coluna gênero
+
           lista={listaTipoUsuario}
+
           chaveId="idTipoUsuario"
           chaveNome="tituloTipoUsuario"
+
+
+          visibilidade="none"
+          listaCadastroGenero="none"
           funcEditar={atualizarTipoUsuario}
           funcExcluir={excluirTipoUsuario}
         />

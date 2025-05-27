@@ -5,13 +5,12 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import Cadastro from "../../components/cadastro/Cadastro";
 import Lista from "../../components/lista/Lista";
-import imagemTipoEvento from "../../assets/img/cadastroTipoEvento_imagem.svg";
+import Cadastros from "../../assets/img/cadastroEvento.png";
 
-const CadastroTipoEvento = () => {
-    const [tipoEvento, setTipoEvento] = useState("");
-    const [listaTipoEvento, setListaTipoEvento] = useState([]);
+const CadastroEvento = () => {
+    const [CadastrarEvento, setCadastrarEvento] = useState("");
+    const [listaEvento, setListaEvento] = useState([]);
 
-    // Função para mostrar alertas rápidos com SweetAlert2
     function alertar(icone, mensagem) {
         const Toast = Swal.mixin({
             toast: true,
@@ -31,15 +30,16 @@ const CadastroTipoEvento = () => {
         });
     }
 
-    async function cadastrarTipoEvento(evento) {
+    async function cadastrarEvento(evento) {
         evento.preventDefault();
 
-        if (tipoEvento.trim() !== "") {
+        if (CadastrarEvento.trim() !== "") {
             try {
-                await api.post("tiposEventos", { tituloTipoEvento: tipoEvento });
+                // Confirme o endpoint correto, aqui deixei 'eventos'
+                await api.post("eventos", { nomeEvento: CadastrarEvento });
                 alertar("success", "Cadastro realizado com sucesso!");
-                setTipoEvento("");
-                listarTipoEvento();
+                setCadastrarEvento("");
+                listarEvento();
             } catch (error) {
                 alertar("error", "Erro! Entre em contato com o suporte.");
                 console.error(error);
@@ -49,17 +49,16 @@ const CadastroTipoEvento = () => {
         }
     }
 
-    async function listarTipoEvento() {
+    async function listarEvento() {
         try {
-            const resposta = await api.get("tiposEventos");
-            setListaTipoEvento(resposta.data);
+            const resposta = await api.get("eventos");
+            setListaEvento(resposta.data);
         } catch (error) {
             console.error(error);
         }
     }
 
-
-    async function excluirTipoEvento(idTipoEvento) {
+    async function excluirEvento(idEvento) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -77,15 +76,16 @@ const CadastroTipoEvento = () => {
             cancelButtonText: "Cancelar",
             reverseButtons: true
         });
+
         if (result.isConfirmed) {
             try {
-                await api.delete(`tiposEventos/${idTipoEvento}`);
+                await api.delete(`eventos/${idEvento}`);
                 swalWithBootstrapButtons.fire(
                     "Deletado!",
                     "O evento foi deletado com sucesso.",
                     "success"
                 );
-                listarTipoEvento();
+                listarEvento();
             } catch (error) {
                 console.log(error);
                 Swal.fire("Erro!", "Não foi possível deletar o evento.", "error");
@@ -99,14 +99,12 @@ const CadastroTipoEvento = () => {
         }
     }
 
-    async function atualizarTipoEvento(tipoEvento) {
-        console.log(tipoEvento);
-
-        const { value: novoTipoEvento } = await Swal.fire({
-            title: "Digite o novo gênero",
+    async function atualizarEvento(evento) {
+        const { value: novoEvento } = await Swal.fire({
+            title: "Digite o novo nome do evento",
             input: "text",
-            inputLabel: "Novo gênero",
-            inputValue: tipoEvento.tituloTipoEvento,
+            inputLabel: "Novo nome",
+            inputValue: evento.nomeEvento,
             showCancelButton: true,
             inputValidator: (value) => {
                 if (!value) {
@@ -115,63 +113,77 @@ const CadastroTipoEvento = () => {
             }
         });
 
-        if (novoTipoEvento) {
+        if (novoEvento) {
             try {
-                console.log("Antigo:", tipoEvento.tituloTipoEvento);
-                console.log("Novo:", novoTipoEvento);
-
-                await api.put(`tiposEventos/${tipoEvento.idTipoEvento}`, {
-                    tituloTipoEvento: novoTipoEvento
+                await api.put(`eventos/${evento.idEvento}`, {
+                    nomeEvento: novoEvento
                 });
-
-
-                Swal.fire(`Evento modificado para: ${novoTipoEvento}`);
+                Swal.fire(`Evento modificado para: ${novoEvento}`);
+                listarEvento();
             } catch (error) {
                 console.error("Erro ao atualizar:", error);
             }
         }
     }
 
+    async function DescreverEvento(idDescricao) {
+        try {
+            const resposta = await api.get(`eventos/${idDescricao}`);
+            const descricao = resposta.data.descricao || "Sem descrição disponível.";
+
+            Swal.fire({
+                title: "Descrição do Evento",
+                text: descricao,
+                icon: "info",
+                confirmButtonText: "Fechar"
+            });
+        } catch (error) {
+            console.error("Erro ao buscar descrição:", error);
+            Swal.fire("Erro!", "Não foi possível carregar a descrição.", "error");
+        }
+    }
+
     useEffect(() => {
-        listarTipoEvento();
-    }, [listaTipoEvento]);
+        listarEvento();
+    }, []);
 
     return (
         <>
             <Header />
             <main>
                 <Cadastro
-                    exibirListaCadastro={false}
-                    imagem={imagemTipoEvento}
-                    titulo_cadastro="Cadastro Tipo de Evento"
-                    nome="Titulo"
-                    valor={tipoEvento}
-                    onChange={(e) => setTipoEvento(e.target.value)}
-                    onSubmit={cadastrarTipoEvento}
-                />
 
+                    exibirListaCadastro={true}
+
+                    imagem={Cadastros}
+                    titulo_cadastro="Cadastro de Evento"
+                    nome="nome"
+                    valor={CadastrarEvento}
+                    onChange={(e) => setCadastrarEvento(e.target.value)}
+                    onSubmit={cadastrarEvento}
+                />
 
                 <Lista
-                    tituloCadastro=""
-                    tituloLista="Lista tipos de Evento"
-
-                    lista={listaTipoEvento}
-
-                    chaveId="idTipoEvento"
-                    chaveNome="tituloTipoEvento"
-
-                    chaveData="none"
+                    exibir_tipo_evento
+                    tituloLista="LISTA TIPO DE EVENTOS"
+                    exibirData={true}
+                    chaveData="dataEvento"
+                    tituloCadastro="none"
+                    lista={listaEvento}
+                    chaveNome="nomeEvento"
+                    listaTipoEvento="none"
+                    chaveId="idEvento"
                     visibilidade="none"
-                    listaCadastroGenero="none"
-
-                    funcEditar={atualizarTipoEvento}
-                    funcExcluir={excluirTipoEvento}
+                    exibirTipoEvento={true}
+                    funcEditar={atualizarEvento}
+                    funcExcluir={excluirEvento}
+                    funcDescricao={DescreverEvento}
+                    exibirSimboloDescricao={true}
                 />
-
             </main>
             <Footer />
         </>
     );
 };
 
-export default CadastroTipoEvento;
+export default CadastroEvento;

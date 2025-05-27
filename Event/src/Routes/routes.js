@@ -3,6 +3,7 @@ import Login from "../pages/login/Login";
 import CadastroTipoEvento from "../pages/cadastroTipoEvento/CadastroTipoEvento";
 import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario"
 import ListagemEvento from "../pages/ListagemEvento/Listagem"
+import CadastroEvento from "../pages/cadastroEvento/CadastroEvento";
 
 const Rotas = () => {
     return(
@@ -20,6 +21,10 @@ const Rotas = () => {
                 {/* http://localhost:3000/ListagemEvento => Listagem de Evento */}
                 <Route path="/ListagemEvento" element ={<ListagemEvento/>}/>
 
+                {/* http://localhost:3000CadastroEvento => Cadastro Evento */}
+                <Route path="/CadastroEvento" element ={<CadastroEvento/>}/>
+           
+           
             </Routes>
         </BrowserRouter>
     )
