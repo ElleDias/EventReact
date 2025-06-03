@@ -3,79 +3,84 @@ import Lixo from "../../assets/img/Lixo_Branco.png";
 import Caneta from "../../assets/img/caneta.png";
 import Descricao from "../../assets/img/descricao.png"
 
-// Componente Lista que recebe dados e funções via props para mostrar uma tabela
 const Lista = (props) => {
   return (
-    <section className="listagem">
-      {/* Título da lista vindo das props */}
+    <section className=" listagem">
       <h1>{props.tituloLista}</h1>
       <hr />
 
-      <table className="tabela">
+      <table className="layout_grid tabela">
         <thead>
           <tr className="tabela_cabecalho">
             <th style={{ display: props.listaCadastroGenero }}>Nome</th>
             {props.exibirData && <th>Data do evento</th>}
+            <th style={{ display: props.tituloTipoEvento }}>Tipo Evento</th>
             <th style={{ display: props.tituloCadastro }}>Título</th>
-            <th style={{ display: props.visibilidade }}>Gênero</th>
+            {/* Exibe o cabeçalho do Gênero só se visibilidadeGenero for diferente de 'none' */}
+            {props.visibilidadeGenero !== "none" && <th>Gênero</th>}
             <th>Editar</th>
             <th>Deletar</th>
-            <th style={{ display: props.listaCadastroGenero }}>Descrição</th>
+            <th style={{ display: props.listaCadastrolistaGenero }}>Descrição</th>
           </tr>
         </thead>
+        {/* -------------------------------------------T/BODY------------------------------------------- */}
         <tbody>
           {props.lista && props.lista.length > 0 ? (
             props.lista.map((item) => (
-              <tr className="item_lista" key={item[props.chaveId]}>
-                <td data-cell="Nome">{item[props.chaveNome]}</td>
+              <tr
+                className="layout_grid item_lista"
+                key={item[props.chaveId]}
+              >
+                <td data-cell="Nome" style={{ display: props.listaCadastroGenero }}>
+                  {item[props.chaveNome]}
+                </td>
 
                 {props.exibirData && (
-                  <td data-cell="Data">
-                    {item[props.chaveData]?.split("T")[0]}
+                  <td data-cell="Data Evento" style={{ display: props.visibilidade }}>
+                    {item[props.chaveData]
+                      ? new Date(item[props.chaveData]).toLocaleDateString("pt-BR")
+                      : "-"}
                   </td>
                 )}
 
-                <td data-cell="Genero" style={{ display: props.visibilidade }}>
-                  {item.genero?.nome || "-"}
-                </td>
+                {props.exibirTipoEvento && (
+                  <td data-cell="Tipo Evento" style={{ display: props.visibilidade }}>
+                    {item[props.chaveTipoEvento]?.tituloTipoEvento || "-"}
+                  </td>
+                )}
 
-                <td>
+                <td data-cell="Editar" className="botao_edicao">
                   <img
-                    className="icone_lista"
                     src={Caneta}
-                    alt="ícone de editar"
-                    style={{ cursor: "pointer" }}
+                    alt="Caneta"
                     onClick={() => props.funcEditar(item)}
+                    style={{ cursor: "pointer" }}
                   />
                 </td>
 
-                <td>
+                <td data-cell="Excluir" className="botao_edicao">
                   <img
-                    className="icone_lista"
                     src={Lixo}
-                    alt="ícone de excluir"
+                    alt="Lixeira"
+                    onClick={() => props.funcDeletar(item)}
                     style={{ cursor: "pointer" }}
-                    onClick={() => props.funcExcluir(item[props.chaveId])}
                   />
                 </td>
 
                 {props.exibirSimboloDescricao && (
-                  <td>
+                  <td data-cell="descricao" className="botao_edicao_descricao" style={{ display: props.visibilidade2 }}>
                     <img
-                      className="icone_lista descricao"
                       src={Descricao}
-                      alt="ícone de descricao"
-                      style={{ cursor: "pointer" }}
+                      alt="Exclamação"
                       onClick={() => props.funcDescricao(item[props.chaveId])}
+                      style={{ cursor: "pointer" }}
                     />
                   </td>
                 )}
               </tr>
             ))
           ) : (
-            <tr>
-              <td>Nenhum item encontrado.</td>
-            </tr>
+            <p>Nenhum item encontrado</p>
           )}
         </tbody>
       </table>

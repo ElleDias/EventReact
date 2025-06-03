@@ -1,0 +1,32 @@
+table{
+ width: 790px;
+ border-collapse: collapse;
+ text-align: center;
+}
+
+.titulo hr{
+    max-width: 100px;
+    width: 100%;
+    margin-top: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B51D44;
+}
+.titulo h1{
+    text-transform: uppercase;
+    color: black;
+}
+
+.imagemListagem{
+    width: 35px;
+}
+
+.sub_eventos th{
+   border-bottom: solid 1px #B51D44;
+}
+
+@media screen and (max-width:500px){
+    .tabela_eventos{
+
+    }
+}

@@ -58,8 +58,7 @@ const CadastroTipoEvento = () => {
         }
     }
 
-
-    async function excluirTipoEvento(idTipoEvento) {
+    async function excluirTipoEvento(id) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -79,7 +78,7 @@ const CadastroTipoEvento = () => {
         });
         if (result.isConfirmed) {
             try {
-                await api.delete(`tiposEventos/${idTipoEvento}`);
+                await api.delete(`tiposEventos/${id.idTipoEvento}`);
                 swalWithBootstrapButtons.fire(
                     "Deletado!",
                     "O evento foi deletado com sucesso.",
@@ -134,7 +133,8 @@ const CadastroTipoEvento = () => {
 
     useEffect(() => {
         listarTipoEvento();
-    }, [listaTipoEvento]);
+    }, []); // Apenas isso já resolve o loop e permite que a lista apareça corretamente
+
 
     return (
         <>
@@ -143,8 +143,8 @@ const CadastroTipoEvento = () => {
                 <Cadastro
                     exibirListaCadastro={false}
                     imagem={imagemTipoEvento}
-                    titulo_cadastro="Cadastro Tipo de Evento"
-                    nome="Titulo"
+                    tituloCadastro="Cadastro de Tipo de Evento"
+                    nome="tituloTipoEvento"
                     valor={tipoEvento}
                     onChange={(e) => setTipoEvento(e.target.value)}
                     onSubmit={cadastrarTipoEvento}
@@ -152,20 +152,20 @@ const CadastroTipoEvento = () => {
 
 
                 <Lista
-                    tituloCadastro=""
+                    tituloCadastro="none"
                     tituloLista="Lista tipos de Evento"
-
+                    visibilidadeGenero={"none"}
                     lista={listaTipoEvento}
-
+                    tituloTipoEvento="none"
                     chaveId="idTipoEvento"
                     chaveNome="tituloTipoEvento"
-
+                    listaCadastrolistaGenero="none"
                     chaveData="none"
                     visibilidade="none"
-                    listaCadastroGenero="none"
-
+                    listaCadastroGenero="tipo evento"
                     funcEditar={atualizarTipoEvento}
-                    funcExcluir={excluirTipoEvento}
+                    funcDeletar={excluirTipoEvento}
+                    visibilidade2="none"
                 />
 
             </main>

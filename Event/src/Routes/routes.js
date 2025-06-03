@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/login/Login";
 import CadastroTipoEvento from "../pages/cadastroTipoEvento/CadastroTipoEvento";
 import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario"
-import ListagemEvento from "../pages/ListagemEvento/Listagem"
+import ListagemEvento from "../pages/ListagemEvento/ListagemEvento"
 import CadastroEvento from "../pages/cadastroEvento/CadastroEvento";
 
 const Rotas = () => {

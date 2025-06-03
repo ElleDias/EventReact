@@ -1,20 +1,15 @@
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import api from "../../services/Service";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import Cadastro from "../../components/cadastro/Cadastro";
 import Lista from "../../components/lista/Lista";
 import imagemTipoUsuario from "../../assets/img/cadastrotipoUsuario_imagem.svg";
-import { useEffect, useState } from "react";
-import api from "../../services/Service";
-import Swal from "sweetalert2";
 
-// Componente principal para gerenciar cadastro e listagem de tipos de usuário
 const CadastroTipoUsuario = () => {
-  // Estado para armazenar o nome do tipo de usuário que está sendo cadastrado
   const [tipoUsuario, setTipoUsuario] = useState("");
-  // Estado para guardar a lista de tipos de usuário vindo da API
   const [listaTipoUsuario, setListaTipoUsuario] = useState([]);
-
-
 
   // Função para mostrar alertas rápidos com SweetAlert2
   function alertar(icone, mensagem) {
@@ -27,36 +22,36 @@ const CadastroTipoUsuario = () => {
       didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;
         toast.onmouseleave = Swal.resumeTimer;
-      },
+      }
     });
 
     Toast.fire({
       icon: icone,
-      title: mensagem,
+      title: mensagem
     });
   }
 
-  // Função para cadastrar novo tipo de usuário via API
   async function cadastrarTipoUsuario(evento) {
-    evento.preventDefault(); // evita recarregar a página
+    evento.preventDefault(); // previne reload da página
 
-    if (tipoUsuario.trim() !== "") {
-      try {
-        await api.post("tiposUsuarios", { tituloTipoUsuario: tipoUsuario });
-        alertar("success", "Cadastro realizado com sucesso!");
-        setTipoUsuario(""); // limpa o campo após cadastro
-        listarTipoUsuario(); // atualiza a lista para mostrar o novo item
-      } catch (error) {
-        alertar("error", "Erro! Entre em contato com o suporte.");
-        console.error(error);
-      }
-    } else {
+    if (tipoUsuario.trim() === "") {
       alertar("error", "Preencha o campo!");
+      return; // para a execução se campo vazio
+    }
+
+    try {
+      await api.post("tiposUsuarios", { tituloTipoUsuario: tipoUsuario });
+      alertar("success", "Cadastro realizado com sucesso!");
+      setTipoUsuario("");  // limpa campo após sucesso
+      listarTipoUsuario();  // atualiza lista
+
+    } catch (error) {
+      alertar("error", "Erro! Entre em contato com o suporte.");
+      console.error(error);
     }
   }
 
-  // Função para buscar a lista de tipos de usuário da API
-  //lista todas as informacoes dentro da lista do TipoUsuario
+
   async function listarTipoUsuario() {
     try {
       const resposta = await api.get("tiposUsuarios");
@@ -66,14 +61,13 @@ const CadastroTipoUsuario = () => {
     }
   }
 
-  // Função para excluir um tipo de usuário após confirmação
-  async function excluirTipoUsuario(idTipoUsuario) {
+  async function excluirTipoUsuario(id) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
+        cancelButton: "btn btn-danger"
       },
-      buttonsStyling: true,
+      buttonsStyling: true
     });
 
     const result = await swalWithBootstrapButtons.fire({
@@ -83,32 +77,32 @@ const CadastroTipoUsuario = () => {
       showCancelButton: true,
       confirmButtonText: "Sim, deletar!",
       cancelButtonText: "Cancelar",
-      reverseButtons: true,
+      reverseButtons: true
     });
 
     if (result.isConfirmed) {
       try {
-        await api.delete(`tiposUsuarios/${idTipoUsuario}`);
+        await api.delete(`tiposUsuarios/${id.idTipoUsuario}`);
         swalWithBootstrapButtons.fire(
           "Deletado!",
-          "O usuario foi deletado com sucesso.",
+          "O tipo de usuário foi deletado com sucesso.",
           "success"
         );
-        listarTipoUsuario(); // atualiza a lista após exclusão
+        listarTipoUsuario();
       } catch (error) {
         console.log(error);
-        Swal.fire("Erro!", "Não foi possível deletar o usuario.", "error");
+        Swal.fire("Erro!", "Não foi possível deletar o tipo de usuário.", "error");
       }
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       swalWithBootstrapButtons.fire(
         "Cancelado",
-        "O usuario não foi deletado.",
+        "O tipo de usuário não foi deletado.",
         "error"
       );
     }
   }
 
-  // Função para atualizar o nome do tipo de usuário via input SweetAlert2
+    // Função para atualizar o nome do tipo de usuário via input SweetAlert2
   async function atualizarTipoUsuario(tipoUsuario) {
     console.log(tipoUsuario);
 
@@ -152,43 +146,43 @@ const CadastroTipoUsuario = () => {
     }
   }
 
-  // useEffect vai servir para carregar a lista ao montar o componente e sempre que listaTipoUsuario mudar ele ira mudar automaticamente
+
   useEffect(() => {
     listarTipoUsuario();
-  }, [listaTipoUsuario]);
+  }, []);
 
   return (
     <>
       <Header />
       <main>
-        {/* Componente de cadastro, recebe props para controlar o formulário */}
         <Cadastro
           exibirListaCadastro={false}
           imagem={imagemTipoUsuario}
-          titulo_cadastro="Cadastro Tipo de Usuário"
-          placeholderTitulo="Título"
-          valorTitulo={tipoUsuario}
-          onChangeTitulo={(e) => setTipoUsuario(e.target.value)}
+          tituloCadastro="Cadastro de Tipo de Usuário"
+          nome="tituloTipoUsuario"
+          valor={tipoUsuario}
+          onChange={(e) => setTipoUsuario(e.target.value)}
           onSubmit={cadastrarTipoUsuario}
         />
-
-
-        {/* Componente para mostrar a lista de tipos de usuário */}
         <Lista
-          tituloCadastro=""
-          tituloLista="Lista De Tipo Usuário"
 
+
+          tituloCadastro="none"
+          tituloLista="Lista tipos de Usuário"
+          visibilidadeGenero="none"
           lista={listaTipoUsuario}
-
+          tituloTipoEvento="none"
           chaveId="idTipoUsuario"
-          chaveNome="tituloTipoUsuario"
-
-
+          chaveNome="tituloTipoUsuario"  // <-- Aqui está o erro
+          listaCadastrolistaGenero="none"
+          chaveData="none"
           visibilidade="none"
-          listaCadastroGenero="none"
+          listaCadastroGenero="tipo usuário"
           funcEditar={atualizarTipoUsuario}
-          funcExcluir={excluirTipoUsuario}
+          funcDeletar={excluirTipoUsuario}
+          visibilidade2="none"
         />
+
       </main>
       <Footer />
     </>

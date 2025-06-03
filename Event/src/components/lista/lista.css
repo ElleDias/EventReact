@@ -34,10 +34,12 @@ body {
 .item_lista img {
   height: 20px;
 }
-.item_lista .descricao {
-  height: 35px;
-}
 
+
+.botao_edicao_descricao img {
+  height: 35px;
+ 
+}
 
 .tabela {
   margin-top: 40px;
