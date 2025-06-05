@@ -1,11 +1,8 @@
 import "./ListagemEvento.css"
-
-// import Header from "../../components/header/Header";
-// import Footer from "../../components/footer/Footer";
-// import Cadastro from "../../components/cadastro/Cadastro";
-// import Lista from "../../components/lista/Lista";
+import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 import Modal from "../../components/modal/modal"
-
+import Swal from "sweetalert2";
 import nuvem from "../../assets/img/nuvem.png";
 import descricao from "../../assets/img/informacao.png";
 import api from "../../services/Service";
@@ -66,13 +63,18 @@ const ListagemEvento = () => {
         try {
             if (presenca && idPresenca != "") {
                 //atualizacao: situacao para FALSE
-
+                await api.put(`PresencasEventos/${idPresenca}`, { situcao: false });
+                Swal.fire('removido!', 'sua presenca foi removida.', 'success');
             } else if (idPresenca != "") {
                 //atualizacao: situacao para TRUE
+                await api.put(`PresencasEventos/${idPresenca}`, { situcao: true });
+                Swal.fire('confirmado!', 'sua presenca foi confirmada.', 'success');
             }
             else {
                 //cadastra uma nova presenca
-                
+                  await api.post(`PresencasEventos/${idPresenca}`, { situcao: true, usuarioId: usuarioId, idEvento: idEvento});
+                  Swal.fire('confirmado!', 'sua presenca foi confirmada.', 'success')
+
             }
         } catch (error) {
             console.log(error);
@@ -82,6 +84,7 @@ const ListagemEvento = () => {
 
     return (
         <>
+            <Header />
             <main className="main_lista_eventos layout_grid">
                 <div className="titulo">
                     <h1>Eventos</h1>
@@ -118,7 +121,7 @@ const ListagemEvento = () => {
                                     </td>
                                     <td data-cell="Participar">
                                         <Toggle
-                                            presenca={item.possuiPresenca} 
+                                            presenca={item.possuiPresenca}
                                             manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)} />
                                     </td>
                                     <hr />
@@ -142,6 +145,7 @@ const ListagemEvento = () => {
                     fecharModal={fecharModal}
                 />
             )}
+            <Footer />
         </>
     );
 };
