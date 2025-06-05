@@ -1,23 +1,22 @@
-import "./ListagemEvento.css"
+import "./ListagemEvento.css";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import Modal from "../../components/modal/modal"
+import Modal from "../../components/modal/modal";
 import Swal from "sweetalert2";
 import nuvem from "../../assets/img/nuvem.png";
 import descricao from "../../assets/img/informacao.png";
 import api from "../../services/Service";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import Toggle from "../../components/toggle/Toggle"
-
+import Toggle from "../../components/toggle/Toggle";
 
 const ListagemEvento = () => {
     const [listaEventos, setListaEvento] = useState([]);
-    const [tipoModal, setTipoModal] = useState("");//descricaoevento ou comentario
-    const [dadosModal, setDadosModal] = useState({});//descricao. idevento, etc
+    const [tipoModal, setTipoModal] = useState("");
+    const [dadosModal, setDadosModal] = useState({});
     const [modalAberto, setModalAberto] = useState(false);
     const [usuarioId, setUsuarioId] = useState("7B53EF89-AFCB-46C9-8BED-80528A8144EA");
-
+    const [filtroData, setFiltroData] = useState(["todos"]);
 
     async function listarEvento() {
         try {
@@ -28,7 +27,6 @@ const ListagemEvento = () => {
 
             const eventosComPresencas = todosOsEventos.map((atualEvento) => {
                 const presenca = minhasPresencas.find(p => p.idEvento === atualEvento.idEvento);
-
                 return {
                     ...atualEvento,
                     possuiPresenca: presenca?.situacao === true,
@@ -41,7 +39,6 @@ const ListagemEvento = () => {
             console.log(error);
         }
     }
-
 
     useEffect(() => {
         listarEvento();
@@ -61,25 +58,33 @@ const ListagemEvento = () => {
 
     async function manipularPresenca(idEvento, presenca, idPresenca) {
         try {
-            if (presenca && idPresenca != "") {
-                //atualizacao: situacao para FALSE
-                await api.put(`PresencasEventos/${idPresenca}`, { situcao: false });
-                Swal.fire('removido!', 'sua presenca foi removida.', 'success');
-            } else if (idPresenca != "") {
-                //atualizacao: situacao para TRUE
-                await api.put(`PresencasEventos/${idPresenca}`, { situcao: true });
-                Swal.fire('confirmado!', 'sua presenca foi confirmada.', 'success');
+            if (presenca && idPresenca !== "") {
+                await api.put(`PresencasEventos/${idPresenca}`, { situacao: false });
+                Swal.fire('Removido!', 'Sua presença foi removida.', "success");
+            } else if (idPresenca !== "") {
+                await api.put(`PresencasEventos/${idPresenca}`, { situacao: true });
+                Swal.fire('Confirmada!', 'Sua presença foi confirmada.', 'success');
+            } else {
+                await api.post("PresencaEventos", { situacao: true, idUsuario: usuarioId, idEvento: idEvento });
+                Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success');
             }
-            else {
-                //cadastra uma nova presenca
-                  await api.post(`PresencasEventos/${idPresenca}`, { situcao: true, usuarioId: usuarioId, idEvento: idEvento});
-                  Swal.fire('confirmado!', 'sua presenca foi confirmada.', 'success')
 
-            }
+            listarEvento();
         } catch (error) {
             console.log(error);
-
         }
+    }
+
+    function filtrarEventos() {
+        const hoje = new Date();
+
+        return listaEventos.filter(evento => {
+            const dataEvento = new Date(evento.dataEvento);
+            if (filtroData.includes("todos")) return true;
+            if (filtroData.includes("futuros") && dataEvento > hoje) return true;
+            if (filtroData.includes("passados") && dataEvento < hoje) return true;
+            return false;
+        });
     }
 
     return (
@@ -91,8 +96,13 @@ const ListagemEvento = () => {
                     <hr />
                 </div>
 
-                <select className="selecaoDeEventos" name="" id="">
-                    <option value="">Todos os eventos</option>
+                <select
+                    className="selecaoDeEventos"
+                    onChange={(e) => setFiltroData([e.target.value])}
+                >
+                    <option value="todos" selected>Todos os eventos</option>
+                    <option value="futuros">Somente futuros</option>
+                    <option value="passados">Somente passados</option>
                 </select>
 
                 <table className="tabela_lista_eventos">
@@ -108,23 +118,34 @@ const ListagemEvento = () => {
                     </thead>
                     <tbody className="corpoListagem">
                         {listaEventos.length > 0 ? (
-                            listaEventos.map((item) => (
+                            filtrarEventos() && filtrarEventos().map((item) => (
                                 <tr className="listagemDoEvento" key={item.idEvento}>
                                     <td data-cell="Nome">{item.nomeEvento}</td>
                                     <td data-cell="Data">{format(item.dataEvento, "dd/MM/yy")}</td>
-                                    <td data-cell="Tipo Evento">{item.IdTipoEvento?.TituloTipoEvento}</td>
+                                    <td data-cell="Tipo Evento">{item.tiposEvento.tituloTipoEvento}</td>
                                     <td data-cell="Descricao">
-                                        <img className="imagemListagem" style={{ cursor: "pointer" }} onClick={() => abrirModal("descricaoEvento", { descricao: item.descricao })} src={descricao} alt="Descrição" />
+                                        <img
+                                            className="imagemListagem"
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => abrirModal("descricaoEvento", { descricao: item.descricao })}
+                                            src={descricao}
+                                            alt="Descrição"
+                                        />
                                     </td>
                                     <td data-cell="Comentários">
-                                        <img style={{ cursor: "pointer" }} onClick={() => abrirModal("comentarios", { idEvento: item.idEvento })} src={nuvem} alt="Comentários" />
+                                        <img
+                                            style={{ cursor: "pointer" }}
+                                            onClick={() => abrirModal("comentarios", { idEvento: item.idEvento })}
+                                            src={nuvem}
+                                            alt="Comentários"
+                                        />
                                     </td>
                                     <td data-cell="Participar">
                                         <Toggle
                                             presenca={item.possuiPresenca}
-                                            manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)} />
+                                            manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)}
+                                        />
                                     </td>
-                                    <hr />
                                 </tr>
                             ))
                         ) : (
@@ -137,8 +158,7 @@ const ListagemEvento = () => {
             </main>
             {modalAberto && (
                 <Modal
-                    titulo={tipoModal == "descricaoEvento" ? "Descricao do evento"
-                        : "Comentario"}
+                    titulo={tipoModal === "descricaoEvento" ? "Descrição do evento" : "Comentário"}
                     tipoModel={tipoModal}
                     idEvento={dadosModal.idEvento}
                     descricao={dadosModal.descricao}
