@@ -1,7 +1,33 @@
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Deletar from "../../assets/img/lixo.png"
+import api from "../../services/Service";
+import "./modal.css"
 
-const modal = (props) => {
+const Modal = (props) => {
+  const [comentarios, setComentarios] = useState([]);
+
+  async function listarComentarios() {
+    try {
+      const resposta = await api.get(`ComentariosEventos/ListarSomenteExibe?id=${props.idEvento}`);
+      setComentarios(resposta.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  useEffect(() => {
+    listarComentarios();
+  }, [])
+
+  async function cadastrarComentario() {
+
+  }
+
+  async function excluirComentario() {
+    
+  }
+
   return (
     <>
       <div className="model_overlay" onClick={props.fecharModal}></div>
@@ -14,7 +40,7 @@ const modal = (props) => {
             <>
               {comentarios.map((item) =>
                 <div key={item.idComentarioEvento}>
-                  <strong>{item.usario.nomeUsuario}</strong>
+                  <strong>{item.usuario.nomeUsuario}</strong>
                   <img src={Deletar} alt="Deletar" />
                   <p>{item.descricao}</p>
                   <hr />
@@ -35,4 +61,4 @@ const modal = (props) => {
   )
 }
 
-export default modal
+export default Modal

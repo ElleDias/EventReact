@@ -24,6 +24,24 @@ table{
 .sub_eventos th{
    border-bottom: solid 1px #B51D44;
 }
+.listagemDoEvento{
+border-collapse: collapse;
+border-bottom: solid 1px black ;
+}
+
+.selecaoDeEventos{
+border: none;
+ border-bottom: 1px solid black;
+ margin-bottom: 20px;
+}
+
+.corpoListagem{
+
+}
+
+.tabela_lista_eventos{
+    
+}
 
 @media screen and (max-width:500px){
     .tabela_eventos{

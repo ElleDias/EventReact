@@ -4,6 +4,7 @@ import CadastroTipoEvento from "../pages/cadastroTipoEvento/CadastroTipoEvento";
 import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario"
 import ListagemEvento from "../pages/ListagemEvento/ListagemEvento"
 import CadastroEvento from "../pages/cadastroEvento/CadastroEvento";
+import Home from "../pages/homeEvento/Home.jsx"
 
 const Rotas = () => {
     return(
@@ -23,6 +24,9 @@ const Rotas = () => {
 
                 {/* http://localhost:3000CadastroEvento => Cadastro Evento */}
                 <Route path="/CadastroEvento" element ={<CadastroEvento/>}/>
+           
+                {/* http://localhost:3000Home => Home */}
+                <Route path="/Home" element ={<Home/>}/>
            
            
             </Routes>

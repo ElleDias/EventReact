@@ -1,0 +1,100 @@
+.home-banner img {
+  width: 100%;
+}
+
+.home-eventos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 40px 0;
+}
+
+.tituloHome{
+display: flex;
+}
+
+.contato-container{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tituloHome hr{
+    max-width: 200px;
+  width: 100%;
+  margin-top: 7px;
+  margin-bottom: 10px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #B51D44;
+}
+
+.home-eventos hr {
+  max-width: 200px;
+  width: 100%;
+  margin-top: 7px;
+  margin-bottom: 50px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #B51D44;
+}
+
+.eventos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.home-visao img{
+ width: 100%;
+ height: 458px;
+}
+
+.imagem-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.imagem-banner {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.textoDaImagem{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    max-width: 80%;
+    border-radius: 8px; 
+}
+
+.evento-card {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  height: 250px;
+  width: 225px;
+  margin: 15px;
+  border: 2px solid #821B47;
+  font-size: small;
+  border-radius: 5px;
+}
+
+.evento-link {
+  color: #B51D44;
+  text-decoration: none;
+}
