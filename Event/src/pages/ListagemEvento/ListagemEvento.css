@@ -1,50 +1,93 @@
-table{
- width: 790px;
- border-collapse: collapse;
- text-align: center;
+table {
+  width: 790px;
+  border-collapse: collapse;
+  text-align: center;
 }
 
-.titulo hr{
-    max-width: 100px;
-    width: 100%;
-    margin-top: 6px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #B51D44;
-}
-.titulo h1{
-    text-transform: uppercase;
-    color: black;
+.tituloEvento hr {
+  max-width: 100px;
+  width: 100%;
+  margin-top: 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #B51D44;
 }
 
-.imagemListagem{
-    width: 35px;
+.tituloEvento h1 {
+  text-transform: uppercase;
+  color: black;
 }
 
-.sub_eventos th{
-   border-bottom: solid 1px #B51D44;
-}
-.listagemDoEvento{
-border-collapse: collapse;
-border-bottom: solid 1px black ;
-}
-
-.selecaoDeEventos{
-border: none;
- border-bottom: 1px solid black;
- margin-bottom: 20px;
+.tituloEvento{
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  margin: 30px 0;
+  font-family: "Poppins", sans-serif;
+  color: #000;
 }
 
-.corpoListagem{
-
+.imagemListagem {
+  width: 35px;
 }
 
-.tabela_lista_eventos{
-    
+.sub_eventos th {
+  border-bottom: solid 1px #B51D44;
 }
 
-@media screen and (max-width:500px){
-    .tabela_eventos{
+.listagemDoEvento {
+  border-collapse: collapse;
+  border-bottom: solid 1px black;
+}
 
-    }
+.filtro_select {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.selecaoDeEventos {
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 16px;
+  padding: 4px 8px;
+  width: auto;
+}
+
+.main_lista_eventos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tabela_lista_eventos {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+}
+
+.selecaoDeEventos {
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+  text-align: left;
+  display: inline-block;
+  align-self: flex-start;
+  margin-left: 60px;
+}
+
+.tabela_lista_eventos th,
+.tabela_lista_eventos td {
+  text-align: center;
+}
+
+.tabela_lista_eventos {
+  margin: 0 auto;
+}
+
+@media screen and (max-width:500px) {
+  .tabela_eventos {}
 }

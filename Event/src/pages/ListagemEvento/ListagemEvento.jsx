@@ -90,12 +90,14 @@ const ListagemEvento = () => {
     return (
         <>
             <Header />
-            <main className="main_lista_eventos layout_grid">
-                <div className="titulo">
+            <section className="main_lista_eventos layout_grid">
+                <div className="tituloEvento">
                     <h1>Eventos</h1>
                     <hr />
                 </div>
 
+
+            
                 <select
                     className="selecaoDeEventos"
                     onChange={(e) => setFiltroData([e.target.value])}
@@ -105,57 +107,60 @@ const ListagemEvento = () => {
                     <option value="passados">Somente passados</option>
                 </select>
 
-                <table className="tabela_lista_eventos">
-                    <thead>
-                        <tr className="sub_eventos">
-                            <th>Título</th>
-                            <th>Data</th>
-                            <th>Tipo de Evento</th>
-                            <th>Descrição</th>
-                            <th>Comentário</th>
-                            <th>Participar</th>
-                        </tr>
-                    </thead>
-                    <tbody className="corpoListagem">
-                        {listaEventos.length > 0 ? (
-                            filtrarEventos() && filtrarEventos().map((item) => (
-                                <tr className="listagemDoEvento" key={item.idEvento}>
-                                    <td data-cell="Nome">{item.nomeEvento}</td>
-                                    <td data-cell="Data">{format(item.dataEvento, "dd/MM/yy")}</td>
-                                    <td data-cell="Tipo Evento">{item.tiposEvento.tituloTipoEvento}</td>
-                                    <td data-cell="Descricao">
-                                        <img
-                                            className="imagemListagem"
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() => abrirModal("descricaoEvento", { descricao: item.descricao })}
-                                            src={descricao}
-                                            alt="Descrição"
-                                        />
-                                    </td>
-                                    <td data-cell="Comentários">
-                                        <img
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() => abrirModal("comentarios", { idEvento: item.idEvento })}
-                                            src={nuvem}
-                                            alt="Comentários"
-                                        />
-                                    </td>
-                                    <td data-cell="Participar">
-                                        <Toggle
-                                            presenca={item.possuiPresenca}
-                                            manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)}
-                                        />
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={6}>Nenhum evento encontrado.</td>
+                <div className="tabela_lista_eventos">
+                    <table>
+                        <thead>
+                            <tr className="sub_eventos">
+                                <th>Título</th>
+                                <th>Data</th>
+                                <th>Tipo de Evento</th>
+                                <th>Descrição</th>
+                                <th>Comentário</th>
+                                <th>Participar</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
-            </main>
+                        </thead>
+                        <tbody className="corpoListagem">
+                            {listaEventos.length > 0 ? (
+                                filtrarEventos() && filtrarEventos().map((item) => (
+                                    <tr className="listagemDoEvento" key={item.idEvento}>
+                                        <td data-cell="Nome">{item.nomeEvento}</td>
+                                        <td data-cell="Data">{format(item.dataEvento, "dd/MM/yy")}</td>
+                                        <td data-cell="Tipo Evento">{item.tiposEvento.tituloTipoEvento}</td>
+                                        <td data-cell="Descricao">
+                                            <img
+                                                className="imagemListagem"
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => abrirModal("descricaoEvento", { descricao: item.descricao })}
+                                                src={descricao}
+                                                alt="Descrição"
+                                            />
+                                        </td>
+                                        <td data-cell="Comentários">
+                                            <img
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() => abrirModal("comentarios", { idEvento: item.idEvento })}
+                                                src={nuvem}
+                                                alt="Comentários"
+                                            />
+                                        </td>
+                                        <td data-cell="Participar">
+                                            <Toggle
+                                                presenca={item.possuiPresenca}
+                                                manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={6}>Nenhum evento encontrado.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+
+                </div>
+            </section>
             {modalAberto && (
                 <Modal
                     titulo={tipoModal === "descricaoEvento" ? "Descrição do evento" : "Comentário"}

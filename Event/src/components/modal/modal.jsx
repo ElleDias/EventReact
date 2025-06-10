@@ -3,12 +3,11 @@ import Deletar from "../../assets/img/lixo.png"
 import api from "../../services/Service";
 import "./modal.css"
 
+
 const Modal = (props) => {
   const [comentarios, setComentarios] = useState([]);
   const [usuarioId, setUsuarioId] = useState("7B53EF89-AFCB-46C9-8BED-80528A8144EA");
   const [novoComentario, setNovoComentario] = useState("");
-
-
 
   async function listarComentarios() {
     try {
@@ -18,7 +17,6 @@ const Modal = (props) => {
       console.log(error);
     }
   }
-
 
   useEffect(() => {
     listarComentarios();
@@ -36,48 +34,48 @@ const Modal = (props) => {
     }
   }
 
-
   async function deletarComentario(idComentario) {
-      try {
-        await api.delete(`comentariosEventos/${idComentario}`);
-      } catch (error) {
-        console.log(error);
-        
-      }
+    try {
+      await api.delete(`comentariosEventos/${idComentario}`);
+    } catch (error) {
+      console.log(error);
+
+    }
   }
 
   return (
     <>
-      <div className="model_overlay" onClick={props.fecharModal}></div>
-      <div className="model">
-        <h1>{props.titulo}</h1>
-        <div className="model_conteudo">
-          {props.tipoModel === "descricaoEvento" ? (
-            <p>{props.descricao}</p>
-          ) : (
-            <>
-              {comentarios.map((item) =>
-                <div key={item.idComentarioEvento}>
-                  <strong>{item.usuario.nomeUsuario}</strong>
-                  <img src={Deletar}  onClick={() => deletarComentario(item.idComentarioEvento)} alt="Deletar" />
-                  <p>{item.descricao}</p>
-                  <hr />
+      <div className="model-overlay" onClick={props.fecharModal}>
+        <div className="model" onClick={(e) => e.stopPropagation()}>
+          <h1>{props.titulo}</h1>
+          <div className="model_conteudo">
+            {props.tipoModel === "descricaoEvento" ? (
+              <p>{props.descricao}</p>
+            ) : (
+              <>
+                {comentarios.map((item) =>
+                  <div key={item.idComentarioEvento}>
+                    <strong>{item.usuario.nomeUsuario}</strong>
+                    <img src={Deletar} alt="Deletar" onClick={() => deletarComentario(item.idComentarioEvento)} />
+                    <p>{item.descricao}</p>
+                    <hr />
+                  </div>
+                )}
+                <div>
+                  <input type="text"
+                    placeholder='Escreva seu comentario ...'
+                    value={novoComentario}
+                    onChange={(e) => setNovoComentario(e.target.value)}
+                  />
+                  <button onClick={() => cadastrarComentario(novoComentario)}>
+                    Cadastrar
+                  </button>
                 </div>
-              )}
-              <div>
-                <input type="text" placeholder='Escreva seu comentario ...' 
-                value={novoComentario}
-               onChange={(e) => setNovoComentario(e.target.value)}
-                />
-                <button onClick={() => cadastrarComentario(novoComentario)}>
-                  Cadastrar
-                </button>
-              </div>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
       </div>
-
     </>
   )
 }
