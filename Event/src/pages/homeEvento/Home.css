@@ -10,23 +10,63 @@
   padding: 40px 0 40px 0;
 }
 
-.tituloHome{
-display: flex;
+.tituloHome {
+  display: flex;
 }
 
-.contato-container{
-    position: relative;
-    display: inline-block;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.home-contato {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
 }
 
-.tituloHome hr{
-    max-width: 200px;
+.tituloHome {
+  text-align: center;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tituloHome h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.tituloHome hr {
+  width: 60px;
+  height: 3px;
+  background-color: #c2185b;
+  border: none;
+  margin: 0 auto;
+}
+
+.contato-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  /* para adaptar em telas pequenas */
+}
+
+.contato-mapa img {
+  max-width: 100%;
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contato-info {
+  font-size: 1rem;
+  color: #444;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.tituloHome hr {
+  max-width: 200px;
   width: 100%;
   margin-top: 7px;
   margin-bottom: 10px;
@@ -51,9 +91,9 @@ display: flex;
   justify-content: center;
 }
 
-.home-visao img{
- width: 100%;
- height: 458px;
+.home-visao img {
+  width: 100%;
+  height: 458px;
 }
 
 .imagem-container {
@@ -68,16 +108,16 @@ display: flex;
   display: block;
 }
 
-.textoDaImagem{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    max-width: 80%;
-    border-radius: 8px; 
+.textoDaImagem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  max-width: 80%;
+  border-radius: 8px;
 }
 
 .evento-card {

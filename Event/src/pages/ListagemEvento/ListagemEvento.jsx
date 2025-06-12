@@ -9,20 +9,22 @@ import api from "../../services/Service";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Toggle from "../../components/toggle/Toggle";
+import { useAuth } from "../../context/AuthContext";
 
 const ListagemEvento = () => {
     const [listaEventos, setListaEvento] = useState([]);
     const [tipoModal, setTipoModal] = useState("");
     const [dadosModal, setDadosModal] = useState({});
     const [modalAberto, setModalAberto] = useState(false);
-    const [usuarioId, setUsuarioId] = useState("7B53EF89-AFCB-46C9-8BED-80528A8144EA");
+    const {usuario} = useAuth();
+    // const [usuarioId, setUsuarioId] = useState("7B53EF89-AFCB-46C9-8BED-80528A8144EA");
     const [filtroData, setFiltroData] = useState(["todos"]);
 
     async function listarEvento() {
         try {
             const resposta = await api.get("eventos");
             const todosOsEventos = resposta.data;
-            const respostaPresenca = await api.get("PresencasEventos/ListarMinhas/" + usuarioId);
+            const respostaPresenca = await api.get("PresencasEventos/ListarMinhas/" + usuario.idUsuario);
             const minhasPresencas = respostaPresenca.data;
 
             const eventosComPresencas = todosOsEventos.map((atualEvento) => {
@@ -41,6 +43,7 @@ const ListagemEvento = () => {
     }
 
     useEffect(() => {
+        // console.log(usuario.idUsuario);      
         listarEvento();
     }, []);
 
@@ -65,7 +68,7 @@ const ListagemEvento = () => {
                 await api.put(`PresencasEventos/${idPresenca}`, { situacao: true });
                 Swal.fire('Confirmada!', 'Sua presença foi confirmada.', 'success');
             } else {
-                await api.post("PresencaEventos", { situacao: true, idUsuario: usuarioId, idEvento: idEvento });
+                await api.post("PresencaEventos", { situacao: true, idUsuario:  usuario.idUsuario, idEvento: idEvento });
                 Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success');
             }
 

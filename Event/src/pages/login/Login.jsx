@@ -6,12 +6,16 @@ import { useState } from "react";
 import { userDecodeToken } from "../../auth/Auth";
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 //componente funcional , toda funcao tem um return
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const { setUsuario } = useAuth();
+
+
 
     async function realizarAutenticacao(e) {
         e.preventDefault();
@@ -30,9 +34,13 @@ const Login = () => {
                     //console.log(tokenDecodificado);
                     secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
 
+                   setUsuario(tokenDecodificado);
+                    // console.log("o tipo de usuario eh")
+                    // console.log(tokenDecodificado.tipoUsuario);
+
                     if (tokenDecodificado.tipoUsuario === "aluno") {
                         //redirecionar a tela de aluno
-                        navigate("/listagemEvento");
+                        navigate("/ListagemEvento");
                     } else {
                         //ele vai me encaminhar para a tela cadastro
                         navigate("/CadastroEvento")

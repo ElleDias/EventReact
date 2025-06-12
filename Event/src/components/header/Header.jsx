@@ -11,7 +11,7 @@ const Header = () => {
                 <img className="login_img " src={Logo} alt="" />
                 <nav className="nav_header">
                     <Link href="" to="/home" className="link_header">Home</Link>
-                    <Link href="" to="/ListagemEvento" className="link_header">Eventos</Link>
+                    <Link href="" to="/CadastroTipoEvento" className="link_header">Eventos</Link>
                     <Link href="" to="/CadastroTipoUsuario" className="link_header">Usuários</Link>
                     <Link href="" className="link_header">Contatos</Link>
                 </nav>
