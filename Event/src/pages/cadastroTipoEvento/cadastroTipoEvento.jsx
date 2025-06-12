@@ -31,23 +31,25 @@ const CadastroTipoEvento = () => {
         });
     }
 
-    async function cadastrarTipoEvento(evento) {
-        evento.preventDefault();
+    async function cadastrarTipoEvento(e) {
+    e.preventDefault();
 
-        if (tipoEvento.trim() !== "") {
-            try {
-                await api.post("tiposEventos", { tituloTipoEvento: tipoEvento });
-                alertar("success", "Cadastro realizado com sucesso!");
-                setTipoEvento("");
-                listarTipoEvento();
-            } catch (error) {
-                alertar("error", "Erro! Entre em contato com o suporte.");
-                console.error(error);
-            }
-        } else {
-            alertar("error", "Preencha o campo!");
-        }
+    if (!tipoEvento || tipoEvento.trim().length === 0) {
+        alertar("error", "Preencha o campo!");
+        return;
     }
+
+    try {
+        await api.post("tiposEventos", { tituloTipoEvento: tipoEvento.trim() });
+        alertar("success", "Cadastro realizado com sucesso!");
+        setTipoEvento("");
+        listarTipoEvento();
+    } catch (error) {
+        alertar("error", "Erro! Entre em contato com o suporte.");
+        console.error("Erro ao cadastrar tipo de evento:", error);
+    }
+}
+
 
     async function listarTipoEvento() {
         try {

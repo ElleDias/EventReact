@@ -9,7 +9,7 @@ import Home from "../pages/homeEvento/Home"
 
 const Privado = (props) => {
     const { usuario } = useAuth();
-    //tke, idUsuario, tipoUsuario
+    //toke, idUsuario, tipoUsuario
 
     // Se nao estiver authenticado, mada para login
     if (!usuario) {

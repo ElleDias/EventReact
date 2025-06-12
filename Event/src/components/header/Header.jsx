@@ -12,8 +12,7 @@ const Header = () => {
                 <nav className="nav_header">
                     <Link href="" to="/home" className="link_header">Home</Link>
                     <Link href="" to="/CadastroTipoEvento" className="link_header">Eventos</Link>
-                    <Link href="" to="/CadastroTipoUsuario" className="link_header">Usuários</Link>
-                    <Link href="" className="link_header">Contatos</Link>
+                    <Link href="" to="/CadastroTipoUsuario" className="link_header">Usuários</Link>                 
                 </nav>
                 <nav className="navs_header">
                     <div className="adm_info">

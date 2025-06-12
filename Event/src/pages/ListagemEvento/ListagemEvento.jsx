@@ -54,21 +54,41 @@ const ListagemEvento = () => {
     }
 
     function fecharModal() {
-        setModalAberto(false);
-        setDadosModal({});
-        setTipoModal("");
+    setModalAberto(false);
+    setDadosModal({});
+    setTipoModal("");
+}  // <-- Sem '++' aqui!
+
+async function manipularPresenca(idEvento, presenca, idPresenca) {
+    try {
+        if (presenca && idPresenca !== "") {
+            await api.put(`PresencasEventos/${idPresenca}`, { situacao: false });
+            Swal.fire('Removido!', 'Sua presença foi removida.', "success");
+        } else if (idPresenca !== null) {
+            await api.put(`PresencasEventos/${idPresenca}`, { situacao: true });
+            Swal.fire('Confirmada!', 'Sua presença foi confirmada.', 'success');
+        } else {
+            await api.post("PresencasEventos", { situacao: true, idUsuario:  usuario.idUsuario, idEvento: idEvento });
+            Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success');
+        }
+
+        listarEvento();
+    } catch (error) {
+        console.log(error);
     }
+}
+
 
     async function manipularPresenca(idEvento, presenca, idPresenca) {
         try {
             if (presenca && idPresenca !== "") {
                 await api.put(`PresencasEventos/${idPresenca}`, { situacao: false });
                 Swal.fire('Removido!', 'Sua presença foi removida.', "success");
-            } else if (idPresenca !== "") {
+            } else if (idPresenca !== null) {
                 await api.put(`PresencasEventos/${idPresenca}`, { situacao: true });
                 Swal.fire('Confirmada!', 'Sua presença foi confirmada.', 'success');
             } else {
-                await api.post("PresencaEventos", { situacao: true, idUsuario:  usuario.idUsuario, idEvento: idEvento });
+                await api.post("PresencasEventos", { situacao: true, idUsuario:  usuario.idUsuario, idEvento: idEvento });
                 Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success');
             }
 
@@ -105,7 +125,7 @@ const ListagemEvento = () => {
                     className="selecaoDeEventos"
                     onChange={(e) => setFiltroData([e.target.value])}
                 >
-                    <option value="todos" selected>Todos os eventos</option>
+                    <option value="todos">Todos os eventos</option>
                     <option value="futuros">Somente futuros</option>
                     <option value="passados">Somente passados</option>
                 </select>
