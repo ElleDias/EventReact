@@ -1,5 +1,4 @@
 import "./Home.css"
-import React from 'react'
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import mapa from "../../assets/img/mapa.png";
@@ -27,7 +26,7 @@ const Home = () => {
               <div className="evento-card" key={i}>
                 <h2>Titulo do Evento</h2>
                 <p>Breve descrição do evento, pode ser um paragrafo pequeno</p>
-                <Link className="evento-link" to="/Login">Conectar</Link>
+                <Link className="evento-link" to="/home">Conectar</Link>
               </div>
             ))}
 

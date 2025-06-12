@@ -32,7 +32,7 @@ const CadastroEvento = () => {
         Toast.fire({ icon: icone, title: mensagem });
     }
 
-    async function cadastrarEvento(e) {
+  async function cadastrarEvento(e) {
         e.preventDefault();
         if (evento.trim() !== "") {
             try {
@@ -59,6 +59,7 @@ const CadastroEvento = () => {
         }
     }
 
+
     async function listarEvento() {
         try {
             const resposta = await api.get("Eventos");
@@ -77,84 +78,83 @@ const CadastroEvento = () => {
         }
     }
 
-    async function excluirEvento(idEvento) {
-        const result = await Swal.fire({
-            title: "Você tem certeza?",
-            text: "Não será possível reverter!",
-            icon: "warning",
+    async function excluirEvento(id) {
+        Swal.fire({
+            title: 'Tem Certeza?',
+            text: "Essa ação não poderá ser desfeita!",
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: "Sim, deletar!",
-            cancelButtonText: "Cancelar"
-        });
-
-        if (result.isConfirmed) {
-            try {
-                await api.delete(`eventos/${idEvento}`);
-                Swal.fire("Deletado!", "O evento foi deletado com sucesso.", "success");
-                listarEvento();
-            } catch (error) {
-                console.error(error);
-                Swal.fire("Erro!", "Não foi possível deletar o evento.", "error");
+            confirmButtonColor: '#9966CC',
+            cancelButtonColor: '#7D7D7D',
+            confirmButtonText: 'Sim, apagar!',
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await api.delete(`eventos/${id.idEvento}`);
+                alertar("success", "Evento Excluido!");
             }
-        }
+        }).catch(error => {
+            console.log(error);
+            alertar("error", "Erro ao Excluir!");
+        })
     }
 
-   async function atualizarEvento(evento) {
-  try {
-    const tiposOptions = listaTipoEvento
-      .map(tipo => `<option value="${tipo.idTipoEvento}" ${tipo.idTipoEvento === evento.idTipoEvento ? 'selected' : ''}>${tipo.tituloTipoEvento}</option>`)
-      .join('');
+    async function atualizarEvento(evento) {
+        try {
+            const tiposOptions = listaTipoEvento
+                .map(tipo => `<option value="${tipo.idTipoEvento}" ${tipo.idTipoEvento === evento.idTipoEvento ? 'selected' : ''}>${tipo.tituloTipoEvento}</option>`)
+                .join('');
 
-    const { value } = await Swal.fire({
-      title: "Editar Tipo de Evento",
-      html: `
+            const { value } = await Swal.fire({
+                title: "Editar Tipo de Evento",
+                html: `
         <input id="campo1" class="swal2-input" placeholder="Título" value="${evento.nomeEvento || ''}">
         <input id="campo2" class="swal2-input" type="date" value="${evento.dataEvento?.substring(0, 10) || ''}">
         <select id="campo3" class="swal2-select">${tiposOptions}</select>
         <input id="campo4" class="swal2-input" placeholder="Categoria" value="${evento.descricao || ''}">
       `,
-      showCancelButton: true,
-      confirmButtonText: "Salvar",
-      cancelButtonText: "Cancelar",
-      focusConfirm: false,
-      preConfirm: () => {
-        const campo1 = document.getElementById("campo1").value;
-        const campo2 = document.getElementById("campo2").value;
-        const campo3 = document.getElementById("campo3").value;
-        const campo4 = document.getElementById("campo4").value;
+                showCancelButton: true,
+                confirmButtonText: "Salvar",
+                cancelButtonText: "Cancelar",
+                focusConfirm: false,
+                preConfirm: () => {
+                    const campo1 = document.getElementById("campo1").value;
+                    const campo2 = document.getElementById("campo2").value;
+                    const campo3 = document.getElementById("campo3").value;
+                    const campo4 = document.getElementById("campo4").value;
 
-        if (!campo1 || !campo2 || !campo3 || !campo4) {
-          Swal.showValidationMessage("Preencha todos os campos.");
-          return false;
+                    if (!campo1 || !campo2 || !campo3 || !campo4) {
+                        Swal.showValidationMessage("Preencha todos os campos.");
+                        return false;
+                    }
+
+                    return { campo1, campo2, campo3, campo4 };
+                }
+            });
+
+            if (!value) {
+                console.log("Edição cancelada pelo usuário.");
+                return;
+            }
+
+            console.log("Dados para atualizar:", value);
+
+            await api.put(`eventos/${evento.idEvento}`, {
+                nomeEvento: value.campo1,
+                dataEvento: value.campo2,
+                idTipoEvento: value.campo3,
+                descricao: value.campo4,
+            });
+
+            console.log("Evento atualizado com sucesso!");
+            Swal.fire("Atualizado!", "Dados salvos com sucesso.", "success");
+            listarEvento();
+
+        } catch (error) {
+            console.log("Erro ao atualizar evento:", error);
+            Swal.fire("Erro!", "Não foi possível atualizar.", "error");
         }
-
-        return { campo1, campo2, campo3, campo4 };
-      }
-    });
-
-    if (!value) {
-      console.log("Edição cancelada pelo usuário.");
-      return;
     }
-
-    console.log("Dados para atualizar:", value);
-
-    await api.put(`eventos/${evento.idEvento}`, {
-      nomeEvento: value.campo1,
-      dataEvento: value.campo2,
-      idTipoEvento: value.campo3,  
-      descricao: value.campo4,
-    });
-
-    console.log("Evento atualizado com sucesso!");
-    Swal.fire("Atualizado!", "Dados salvos com sucesso.", "success");
-    listarEvento();
-
-  } catch (error) {
-    console.log("Erro ao atualizar evento:", error);
-    Swal.fire("Erro!", "Não foi possível atualizar.", "error");
-  }
-}
 
     async function DescreverEvento(idEvento) {
         try {
@@ -170,7 +170,7 @@ const CadastroEvento = () => {
     useEffect(() => {
         listarEvento();
         listarTipoEvento();
-    }, []);
+    }, [listaEvento]);
 
     return (
         <>
@@ -194,7 +194,9 @@ const CadastroEvento = () => {
                     valorInstituicao={instituicao}
                     setValorInstituicao={setInstituicao}
 
+                 
                 />
+
                 <Lista
                     tituloTipoEvento={true}
                     exibirTipoEvento={true}
@@ -212,7 +214,7 @@ const CadastroEvento = () => {
                     chaveId="idEvento"
                     chaveNome="nomeEvento"
                     chaveData="dataEvento"
-                    chaveTipoEvento="tiposEvento"  // <-- atenção aqui: confira o nome da propriedade vindo da API
+                    chaveTipoEvento="tiposEvento"
                 />
 
 

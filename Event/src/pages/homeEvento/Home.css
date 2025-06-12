@@ -138,3 +138,69 @@
   color: #B51D44;
   text-decoration: none;
 }
+
+
+  @media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px) {
+
+  .home-eventos {
+    padding: 20px 10px;
+  }
+
+  .tituloHome h2 {
+    font-size: 1.5rem;
+  }
+
+  .contato-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .contato-info {
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .contato-mapa img {
+    width: 100%;
+    max-width: 90%;
+    height: auto;
+  }
+
+  .home-visao img {
+    height: auto;
+  }
+
+  .textoDaImagem {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .evento-card {
+    width: 90%;
+    height: auto;
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+
+  .imagem-container {
+    height: auto;
+  }
+
+  .imagem-banner {
+    height: auto;
+  }
+
+  .eventos-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tituloHome hr,
+  .home-eventos hr {
+    max-width: 100px;
+  }
+}
+  }
