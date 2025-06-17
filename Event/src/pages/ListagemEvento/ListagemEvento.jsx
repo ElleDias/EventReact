@@ -112,7 +112,8 @@ async function manipularPresenca(idEvento, presenca, idPresenca) {
 
     return (
         <>
-            <Header />
+            <Header 
+             HeaderNome= "Aluno" />
             <section className="main_lista_eventos layout_grid">
                 <div className="tituloEvento">
                     <h1>Eventos</h1>

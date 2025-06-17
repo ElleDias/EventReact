@@ -3,12 +3,31 @@ import Deletar from "../../assets/img/lixo.png"
 import api from "../../services/Service";
 import "./modal.css"
 
-
+import Swal from "sweetalert2";
 const Modal = (props) => {
   const [comentarios, setComentarios] = useState([]);
   const [usuarioId, setUsuarioId] = useState("7B53EF89-AFCB-46C9-8BED-80528A8144EA");
   const [novoComentario, setNovoComentario] = useState("");
 
+
+    function alertar(icone, mensagem) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+  
+      Toast.fire({
+        icon: icone,
+        title: mensagem
+      });
+    }
   async function listarComentarios() {
     try {
       const resposta = await api.get(`ComentariosEventos/ListarSomenteExibe?id=${props.idEvento}`);
@@ -30,7 +49,8 @@ const Modal = (props) => {
         Descricao: comentario
       })
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
+      alertar("error", error.response.data)
     }
   }
 
@@ -61,13 +81,13 @@ const Modal = (props) => {
                     <hr />
                   </div>
                 )}
-                <div>
+                <div className='comentario'>
                   <input type="text"
                     placeholder='Escreva seu comentario ...'
                     value={novoComentario}
                     onChange={(e) => setNovoComentario(e.target.value)}
                   />
-                  <button onClick={() => cadastrarComentario(novoComentario)}>
+                  <button className= "botaoModal" onClick={() => cadastrarComentario(novoComentario)}>
                     Cadastrar
                   </button>
                 </div>

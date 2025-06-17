@@ -26,7 +26,6 @@ const Privado = (props) => {
     return <props.item />;
 }
 
-
 const Rotas = () => {
     return (
         <BrowserRouter >

@@ -1,3 +1,4 @@
+/* Estilos existentes e base */
 .home-banner img {
   width: 100%;
 }
@@ -7,24 +8,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px 0 40px 0;
+  padding: 40px 0;
 }
 
 .tituloHome {
   display: flex;
-}
-
-.home-contato {
-  padding: 40px 20px;
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
-}
-
-.tituloHome {
+  flex-direction: column; /* Ensure it's always a column for centering elements */
   text-align: center;
   margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
 }
 
 .tituloHome h2 {
@@ -34,11 +25,72 @@
 }
 
 .tituloHome hr {
-  width: 60px;
+  width: 60px; /* Default width for the HR line */
   height: 3px;
   background-color: #c2185b;
   border: none;
-  margin: 0 auto;
+  margin: 0 auto; /* Center the HR line */
+}
+
+.secao-eventos hr {
+    max-width: 200px;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 50px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B51D44;
+}
+
+.secao-eventos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.conjunto-cards {
+    display: flex;
+}
+
+.cartao-evento {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    height: 250px;
+    width: 225px;
+    margin: 0 15px;
+    border: 2px solid #821B47;
+    font-size: small;
+    border-radius: 5px;
+}
+
+.link-evento {
+    color: #B51D44;
+    text-decoration: none;
+    font-size: medium;
+}
+.cartao-evento,
+.evento-card { /* Combined for consistency if they refer to the same element */
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  height: 250px;
+  width: 225px;
+  margin: 15px; /* Consistent margin for cards */
+  border: 2px solid #821B47;
+  font-size: small;
+  border-radius: 5px;
+}
+
+.home-contato {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
 }
 
 .contato-container {
@@ -47,7 +99,6 @@
   justify-content: center;
   gap: 40px;
   flex-wrap: wrap;
-  /* para adaptar em telas pequenas */
 }
 
 .contato-mapa img {
@@ -65,17 +116,7 @@
   line-height: 1.6;
 }
 
-.tituloHome hr {
-  max-width: 200px;
-  width: 100%;
-  margin-top: 7px;
-  margin-bottom: 10px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #B51D44;
-}
-
-.home-eventos hr {
+.home-eventos hr { /* Specific to home-eventos */
   max-width: 200px;
   width: 100%;
   margin-top: 7px;
@@ -93,7 +134,7 @@
 
 .home-visao img {
   width: 100%;
-  height: 458px;
+  height: 458px; /* Consider `object-fit: cover;` with `height: auto;` or a specific height for better responsiveness */
 }
 
 .imagem-container {
@@ -107,48 +148,45 @@
   height: auto;
   display: block;
 }
-
 .textoDaImagem {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  width: 80%;
+  max-height: 80%;
   color: white;
   padding: 20px;
   text-align: center;
-  max-width: 80%;
   border-radius: 8px;
+
+  white-space: normal;
+  box-sizing: border-box;
+  overflow: auto;
+  transform: translate(-50%, -50%);
 }
 
-.evento-card {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-align: center;
-  height: 250px;
-  width: 225px;
-  margin: 15px;
-  border: 2px solid #821B47;
-  font-size: small;
-  border-radius: 5px;
-}
 
 .evento-link {
   color: #B51D44;
   text-decoration: none;
 }
 
+/* --- */
 
-  @media screen and (max-width: 768px) {
-    @media screen and (max-width: 768px) {
-
+/* Media Queries para Responsividade */
+@media screen and (max-width: 768px) {
   .home-eventos {
     padding: 20px 10px;
   }
 
   .tituloHome h2 {
     font-size: 1.5rem;
+  }
+
+  .tituloHome hr,
+  .home-eventos hr {
+    max-width: 100px;
+    margin: 0 auto 20px auto; /* Adjust margin for smaller screens */
   }
 
   .contato-container {
@@ -170,19 +208,26 @@
   }
 
   .home-visao img {
-    height: auto;
+    height: auto; /* Allow height to adjust naturally */
+    object-fit: cover; /* Ensures image covers the area without distortion */
   }
 
-  .textoDaImagem {
-    font-size: 0.9rem;
-    padding: 10px;
+ .textoDaImagem {
+  
+    width: 90%;
+    padding: 15px;
+    font-size: 1rem;
   }
 
+
+  .cartao-evento,
   .evento-card {
-    /* width: 90%; */
-    height: auto;
+    width: calc(100% - 30px); /* Adjust width to take full width minus margin on small screens */
+    max-width: 300px; /* Prevent cards from becoming too wide on slightly larger small screens */
+    height: auto; /* Allow height to adjust based on content */
     padding: 15px;
     font-size: 0.9rem;
+    margin-bottom: 20px; /* Add some space between stacked cards */
   }
 
   .imagem-container {
@@ -192,12 +237,26 @@
   .imagem-banner {
     height: auto;
   }
+}
 
-  
+@media screen and (max-width: 480px) {
+  .tituloHome h2 {
+    font-size: 1.2rem;
+  }
 
-  .tituloHome hr,
-  .home-eventos hr {
-    max-width: 100px;
+  .home-eventos,
+  .home-contato {
+    padding: 15px; /* Further reduce padding on very small screens */
+  }
+
+  .cartao-evento,
+  .evento-card {
+    margin: 10px 0; /* Adjust margin for very small screens */
+    width: 100%; /* Take full width on very small screens */
+  }
+
+  .textoDaImagem {
+    font-size: 0.8rem;
+    padding: 8px;
   }
 }
-  }

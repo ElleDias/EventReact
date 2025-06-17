@@ -11,7 +11,6 @@ const CadastroTipoEvento = () => {
     const [tipoEvento, setTipoEvento] = useState("");
     const [listaTipoEvento, setListaTipoEvento] = useState([]);
 
-    // Função para mostrar alertas rápidos com SweetAlert2
     function alertar(icone, mensagem) {
         const Toast = Swal.mixin({
             toast: true,
@@ -31,36 +30,37 @@ const CadastroTipoEvento = () => {
         });
     }
 
-    async function cadastrarTipoEvento(e) {
-    e.preventDefault();
+    async function cadastrarTipoEvento(evento) {
+        evento.preventDefault();
 
-    if (!tipoEvento || tipoEvento.trim().length === 0) {
-        alertar("error", "Preencha o campo!");
-        return;
+        if (tipoEvento.trim() === "") {
+            alertar("error", "Preencha o campo!");
+            return;
+        }
+
+        try {
+            await api.post("tiposEventos", { tituloTipoEvento: tipoEvento });
+            alertar("success", "Cadastro realizado com sucesso!");
+            setTipoEvento("");
+            listarTipoEvento();
+        } catch (error) {
+            alertar("error", "Erro! Entre em contato com o suporte.");
+            console.error(error);
+        }
     }
-
-    try {
-        await api.post("tiposEventos", { tituloTipoEvento: tipoEvento.trim() });
-        alertar("success", "Cadastro realizado com sucesso!");
-        setTipoEvento("");
-        listarTipoEvento();
-    } catch (error) {
-        alertar("error", "Erro! Entre em contato com o suporte.");
-        console.error("Erro ao cadastrar tipo de evento:", error);
-    }
-}
-
 
     async function listarTipoEvento() {
         try {
             const resposta = await api.get("tiposEventos");
             setListaTipoEvento(resposta.data);
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
 
     async function excluirTipoEvento(id) {
+        //   const token = localStorage.getItem("token"); // pegue o token salvo
+
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -78,69 +78,69 @@ const CadastroTipoEvento = () => {
             cancelButtonText: "Cancelar",
             reverseButtons: true
         });
+
         if (result.isConfirmed) {
             try {
-                await api.delete(`tiposEventos/${id.idTipoEvento}`);
+                console.log(id);
+
+                await api.delete(`TiposEventos/${id.idTipoEvento}`);
                 swalWithBootstrapButtons.fire(
                     "Deletado!",
-                    "O evento foi deletado com sucesso.",
+                    "O tipo de evento foi deletado com sucesso.",
                     "success"
                 );
                 listarTipoEvento();
             } catch (error) {
                 console.log(error);
-                Swal.fire("Erro!", "Não foi possível deletar o evento.", "error");
+                Swal.fire("Erro!", "Não foi possível deletar o tipo de evento.", "error");
             }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
                 "Cancelado",
-                "O evento não foi deletado.",
+                "O tipo de evento não foi deletado.",
                 "error"
             );
         }
     }
 
-    async function atualizarTipoEvento(tipoEvento) {
-        console.log(tipoEvento);
 
+    async function atualizarTipoEvento(tipoEvento) {
         const { value: novoTipoEvento } = await Swal.fire({
-            title: "Digite o novo gênero",
+            title: "Digite o novo nome",
             input: "text",
-            inputLabel: "Novo gênero",
+            inputLabel: "Novo usuário",
             inputValue: tipoEvento.tituloTipoEvento,
             showCancelButton: true,
             inputValidator: (value) => {
                 if (!value) {
                     return "O campo não pode estar vazio!";
                 }
-            }
+            },
         });
 
         if (novoTipoEvento) {
             try {
-                console.log("Antigo:", tipoEvento.tituloTipoEvento);
-                console.log("Novo:", novoTipoEvento);
-
                 await api.put(`tiposEventos/${tipoEvento.idTipoEvento}`, {
                     tituloTipoEvento: novoTipoEvento
                 });
 
-
-                Swal.fire(`Evento modificado para: ${novoTipoEvento}`);
+                Swal.fire("Atualizado!", `Novo tipo: ${novoTipoEvento}`, "success");
+                listarTipoEvento();
             } catch (error) {
                 console.error("Erro ao atualizar:", error);
+                Swal.fire("Erro!", "Não foi possível atualizar.", "error");
             }
         }
     }
 
     useEffect(() => {
         listarTipoEvento();
-    }, []); // Apenas isso já resolve o loop e permite que a lista apareça corretamente
-
+    }, []);
 
     return (
         <>
-            <Header />
+            <Header nomeDoBotao="Clique aqui" mostrarBotao={false} 
+            HeaderNome= "Administrador"/>
             <main>
                 <Cadastro
                     exibirListaCadastro={false}
@@ -152,11 +152,10 @@ const CadastroTipoEvento = () => {
                     onSubmit={cadastrarTipoEvento}
                 />
 
-
                 <Lista
                     tituloCadastro="none"
                     tituloLista="Lista tipos de Evento"
-                    visibilidadeGenero={"none"}
+                    visibilidadeGenero="none"
                     lista={listaTipoEvento}
                     tituloTipoEvento="none"
                     chaveId="idTipoEvento"
@@ -169,7 +168,6 @@ const CadastroTipoEvento = () => {
                     funcDeletar={excluirTipoEvento}
                     visibilidade2="none"
                 />
-
             </main>
             <Footer />
         </>

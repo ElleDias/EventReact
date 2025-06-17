@@ -11,6 +11,9 @@ export const AuthProvider = ({ children }) => {
     //cria um estado que guarda os dados do usuario logado
     const [usuario, setUsuario] = useState(() => {
         const usuarioSalvo = secureLocalStorage.getItem("tokenLogin")
+
+        console.log(JSON.parse(usuarioSalvo));
+        
         return usuarioSalvo ? JSON.parse(usuarioSalvo) : undefined;
     });
 

@@ -72,11 +72,11 @@ const Cadastro = (props) => {
                                 </div>
 
                                 <div className="campo_cad_nome">
-                                    <label htmlFor="Descricao"></label>
+                                    <label htmlFor="Descrição"></label>
                                     <input
                                         type="text"
                                         name="descricao"
-                                        placeholder="descricao"
+                                        placeholder="Descrição"
                                         value={props.valorInputDescricao}
                                         style={{ display: props.visibilidade_descricao }}
                                         onChange={(e) => props.setValorInputDescricao(e.target.value)}

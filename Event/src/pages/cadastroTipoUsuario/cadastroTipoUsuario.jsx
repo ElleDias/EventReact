@@ -82,7 +82,7 @@ const CadastroTipoUsuario = () => {
 
     if (result.isConfirmed) {
       try {
-        await api.delete(`tiposUsuarios/${id.idTipoUsuario}`);
+        await api.delete(`TiposUsuarios/${id.idTipoUsuario}`);
         swalWithBootstrapButtons.fire(
           "Deletado!",
           "O tipo de usuário foi deletado com sucesso.",
@@ -153,7 +153,7 @@ const CadastroTipoUsuario = () => {
 
   return (
     <>
-      <Header />
+      <Header HeaderNome= "Administrador"/>
       <main>
         <Cadastro
           exibirListaCadastro={false}

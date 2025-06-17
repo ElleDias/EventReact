@@ -31,19 +31,22 @@ const Login = () => {
                 if (token) {
                     const tokenDecodificado = userDecodeToken(token);
                     //console.log("Token decodificado");
-                    //console.log(tokenDecodificado);
-                    secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
+                    console.log(tokenDecodificado);
+                    
+                    if (token) {
+                        // Salve o token original (string) no storage seguro
+                        // secureLocalStorage.setItem("tokenLogin", token);
+                        
+                        // Também pode guardar o decodificado pra usar dados do usuário facilmente
+                        const tokenDecodificado = userDecodeToken(token);
+                        setUsuario(tokenDecodificado);
+                        secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
 
-                   setUsuario(tokenDecodificado);
-                    // console.log("o tipo de usuario eh")
-                    // console.log(tokenDecodificado.tipoUsuario);
-
-                    if (tokenDecodificado.tipoUsuario === "aluno") {
-                        //redirecionar a tela de aluno
-                        navigate("/ListagemEvento");
-                    } else {
-                        //ele vai me encaminhar para a tela cadastro
-                        navigate("/CadastroEvento")
+                        if (tokenDecodificado.tipoUsuario === "aluno") {
+                            navigate("/ListagemEvento");
+                        } else {
+                            navigate("/CadastroEvento");
+                        }
                     }
                 }
             } catch (error) {

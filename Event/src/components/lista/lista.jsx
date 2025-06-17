@@ -6,7 +6,7 @@ import Descricao from "../../assets/img/descricao.png"
 const Lista = (props) => {
   return (
     <div className="listagem">
-        <section className="layout_grid ">
+      <section className="layout_grid ">
 
         <h1>{props.tituloLista}</h1>
         <hr />
@@ -29,10 +29,7 @@ const Lista = (props) => {
           <tbody>
             {props.lista && props.lista.length > 0 ? (
               props.lista.map((item) => (
-                <tr
-                  className="layout_grid item_lista"
-                  key={item[props.chaveId]}
-                >
+                <tr className="layout_grid item_lista" key={item[props.chaveId]}>
                   <td data-cell="Nome" style={{ display: props.listaCadastroGenero }}>
                     {item[props.chaveNome]}
                   </td>
@@ -70,7 +67,11 @@ const Lista = (props) => {
                   </td>
 
                   {props.exibirSimboloDescricao && (
-                    <td data-cell="descricao" className="botao_edicao_descricao" style={{ display: props.visibilidade2 }}>
+                    <td
+                      data-cell="descricao"
+                      className="botao_edicao_descricao"
+                      style={{ display: props.visibilidade2 }}
+                    >
                       <img
                         src={Descricao}
                         alt="Exclamação"
@@ -82,12 +83,17 @@ const Lista = (props) => {
                 </tr>
               ))
             ) : (
-              <p>Nenhum item encontrado</p>
+              <tr>
+                <td colSpan="7" style={{ textAlign: "center", padding: "1rem" }}>
+                  Nenhum item encontrado
+                </td>
+              </tr>
             )}
           </tbody>
+
         </table>
-    </section>
-      </div>
+      </section>
+    </div>
   );
 };
 

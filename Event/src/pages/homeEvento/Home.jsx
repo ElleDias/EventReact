@@ -7,30 +7,60 @@ import home from "../../assets/img/home.png"
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const eventos = [
+    {
+      titulo: "Participe de Eventos Exclusivos",
+      descricao:
+        "Esteja presente nos principais eventos de T.I. do país. Networking, conteúdo de ponta e experiências únicas te esperam.",
+    },
+    {
+      titulo: "Conheça os Líderes da Inovação",
+      descricao:
+        "Palestras com especialistas, cases de sucesso e insights que vão transformar sua carreira e sua visão de tecnologia.",
+    },
+    {
+      titulo: "Desenvolva Novas Habilidades",
+      descricao:
+        "Workshops práticos, desafios de programação e trilhas técnicas para quem quer ir além da teoria.",
+    },
+    {
+      titulo: "Faça Parte da Comunidade Tech",
+      descricao:
+        "Conecte-se com devs, startups e empresas. Encontre seu lugar em uma rede colaborativa que não para de crescer.",
+    },
+  ];
+
   return (
+
     <div>
-      <Header />
+      <Header   
+        nomeDoBotao="Logar" mostrarBotao={true}         
+      />
+
+
       <main className="home-layout">
 
         <section className="home-banner">
           <img src={home} alt="Área de eventos da escola de informática" />
         </section>
 
+        {/* Seção de eventos */}
         <section className="home-eventos">
           <h2>Próximos Eventos</h2>
           <hr />
 
-          <div className="eventos-container">
-
-            {[...Array(4)].map((_, i) => (
-              <div className="evento-card" key={i}>
-                <h2>Titulo do Evento</h2>
-                <p>Breve descrição do evento, pode ser um paragrafo pequeno</p>
-                <Link className="evento-link" to="/home">Conectar</Link>
+          <div className="conjunto-cards">
+            {eventos.map((evento, index) => (
+              <div className="cartao-evento" key={index}>
+                <h2>{evento.titulo}</h2>
+                <p>{evento.descricao}</p>
+                <Link className="link-evento" to="/Login">
+                  Conectar
+                </Link>
               </div>
             ))}
-
           </div>
+
         </section>
 
         <section className="home-visao">
@@ -40,19 +70,21 @@ const Home = () => {
               <h2>Visão</h2>
               <hr />
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus neque
-                ipsum voluptatibus animi laudantium enim eius fugiat dolor voluptas
-                nesciunt...
+                Nossa visão é impulsionar o desenvolvimento tecnológico por meio deexperiências únicas em eventos de T.I. Acreditamos que a troca de conhecimento, o networking qualificado e o acesso a conteúdos
+                relevantes são essenciais para a evolução da comunidade tech.
+                Queremos ser referência na promoção de encontros que conectam
+                pessoas, inspiram ideias e aceleram a inovação.
               </p>
+
             </div>
           </div>
         </section>
 
         <section className="home-contato">
-            <div className= "tituloHome">
-          <h2>Contato</h2>
-          <hr />
-            </div>
+          <div className="tituloHome">
+            <h2>Contato</h2>
+            <hr />
+          </div>
           <div className="contato-container">
             <div className="contato-mapa">
               <img src={mapa} alt="Mapa da localização" />

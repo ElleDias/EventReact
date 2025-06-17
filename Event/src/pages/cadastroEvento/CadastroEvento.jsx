@@ -174,7 +174,8 @@ const CadastroEvento = () => {
 
     return (
         <>
-            <Header />
+            <Header 
+             HeaderNome= "Administrador"/>
             <main>
                 <Cadastro
                     tituloCadastro="Cadastro de Evento"
