@@ -26,8 +26,8 @@ header {
 
 .botaozinhbo .botao {
   height: 35px;
-  width: 115px;
-  margin-left: 20px;
+  width: 100px;
+  margin-left: 15px;
 }
 
 .imagem {
@@ -47,7 +47,7 @@ header {
 }
 
 /* Responsividade */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) and (max-width: 900px) {
   .header_header {
     flex-direction: column;
     align-items: center;
@@ -62,7 +62,7 @@ header {
   }
 
   .botaozinhbo .botao {
-    width: 100px;
+    width: 80px;
     height: 40px;
     margin-left: 0;
     font-size: 0.9rem;
