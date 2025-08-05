@@ -3,6 +3,8 @@
 import axios from "axios";
 const apiPorta = "5289"
 
+const apiAzure = "apieventdanielle-gperchadevhqh5b8.brazilsouth-01.azurewebsites.net";
+
 //apiLocal ela recebe o endereco da api
 const apilocal = `http://localhost:${apiPorta}/api/`;
 
