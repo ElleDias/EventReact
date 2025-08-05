@@ -1,8 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "../pages/login/Login";
 import CadastroEvento from "../pages/cadastroEvento/CadastroEvento"
-import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/CadastroTipoUsuario"
-import CadastroTipoEvento from "../pages/cadastroTipoEvento/CadastroTipoEvento"
+import CadastroTipoUsuario from "../pages/cadastroTipoUsuario/cadastroTipoUsuario"
+import CadastroTipoEvento from "../pages/cadastroTipoEvento/cadastroTipoEvento"
 import { useAuth } from "../context/AuthContext";
 import ListagemEvento from "../pages/ListagemEvento/ListagemEvento";
 import Home from "../pages/homeEvento/Home"

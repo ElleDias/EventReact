@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 import api from "../../services/Service";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import Cadastro from "../../components/cadastro/Cadastro";
-import Lista from "../../components/lista/Lista";
+import Cadastro from "../../components/cadastro/cadastro";
+import Lista from "../../components/lista/lista";
 import imagemTipoUsuario from "../../assets/img/cadastrotipoUsuario_imagem.svg";
 
 const CadastroTipoUsuario = () => {

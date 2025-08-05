@@ -3,9 +3,9 @@ import Swal from "sweetalert2";
 import api from "../../services/Service";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import Cadastro from "../../components/cadastro/Cadastro";
-import Lista from "../../components/lista/Lista";
-import Cadastros from "../../assets/img/cadastroEvento.png";
+import Cadastro from "../../components/cadastro/cadastro";
+import Lista from "../../components/lista/lista";
+import Cadastros from "../../assets/img/cadastroDeEvento_imagem.svg";
 
 const CadastroEvento = () => {
     const [evento, setEvento] = useState("");

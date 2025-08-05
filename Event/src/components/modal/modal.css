@@ -98,7 +98,7 @@
     width: 85px;    
     height: 30px;
     border: none;
-    background-color: #B51D44;
+    background-color: #571162;
     cursor: pointer;
     color: white;
     margin-top: 15px;
@@ -108,7 +108,7 @@
 }
 
 .botaoModal button {
-    background-color: #c2185b;
+    background-color: #571162;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -120,7 +120,7 @@
 
 
 .botaoModal button:hover {
-    background-color: #ad1457;
+    background-color: #571162;
 }
 
 .model {
