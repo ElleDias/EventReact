@@ -27,7 +27,7 @@
 .tituloHome hr {
   width: 60px; /* Default width for the HR line */
   height: 3px;
-  background-color: #c2185b;
+  background-color: #571162;
   border: none;
   margin: 0 auto; /* Center the HR line */
 }
@@ -39,7 +39,7 @@
     margin-bottom: 50px;
     border-width: 1px;
     border-style: solid;
-    border-color: #B51D44;
+    border-color: #571162;
 }
 
 .secao-eventos {
@@ -64,13 +64,13 @@
     height: 250px;
     width: 225px;
     margin: 0 15px;
-    border: 2px solid #821B47;
+    border: 2px solid #571162;
     font-size: small;
     border-radius: 5px;
 }
 
 .link-evento {
-    color: #B51D44;
+    color: #571162;
     text-decoration: none;
     font-size: medium;
 }
@@ -84,7 +84,7 @@
   height: 250px;
   width: 225px;
   margin: 15px; /* Consistent margin for cards */
-  border: 2px solid #821B47;
+  border: 2px solid #571162;
   font-size: small;
   border-radius: 5px;
 }
@@ -125,7 +125,7 @@
   margin-bottom: 50px;
   border-width: 2px;
   border-style: solid;
-  border-color: #B51D44;
+  border-color: #571162;
 }
 
 .eventos-container {
@@ -169,7 +169,7 @@
 
 
 .evento-link {
-  color: #B51D44;
+  color: #571162;
   text-decoration: none;
 }
 
